@@ -1,0 +1,23 @@
+<div class="main">
+    <div class="filler">
+        <h3>"Het zijn niet de sterkste van een soort die overleven en ook niet de intelligentste. Het zijn degene die zich het best op veranderingen aanpassen."</h3>
+        <h4>- Charles Darwin</h4>
+    </div>
+
+    <div class="register">
+        <div class="text-box">
+            <h1>Maak een account aan</h1>
+            <p>Al een account? Log in</p>
+        </div>
+        <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" required [(ngModel)]="email" name="email">
+
+            <label for="password">Wachtwoord:</label>
+            <input type="password" id="password" required [(ngModel)]="password" name="password">
+
+            <button type="submit">Registreer</button>
+        </form>
+    </div>
+
+</div>
