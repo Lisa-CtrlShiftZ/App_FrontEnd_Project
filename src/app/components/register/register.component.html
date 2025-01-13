@@ -1,20 +1,28 @@
 <div class="main">
     <div class="filler">
-        <h3>"Het zijn niet de sterkste van een soort die overleven en ook niet de intelligentste. Het zijn degene die zich het best op veranderingen aanpassen."</h3>
+        <h3>"Het zijn niet de sterkste van een soort die overleven en ook niet de intelligentste. Het zijn degene die
+            zich het best op veranderingen aanpassen."</h3>
         <h4>- Charles Darwin</h4>
     </div>
 
     <div class="register">
         <div class="text-box">
             <h1>Maak een account aan</h1>
-            <p>Al een account? Log in</p>
+            <p>Al een account?</p>
+            <a href="/login">Login</a>
         </div>
-        <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <label for="name">Naam:</label>
+            <input type="text" id="name" formControlName="name" required>
+
             <label for="email">E-mail:</label>
-            <input type="text" id="email" required [(ngModel)]="email" name="email">
+            <input type="text" id="email" formControlName="email" required>
 
             <label for="password">Wachtwoord:</label>
-            <input type="password" id="password" required [(ngModel)]="password" name="password">
+            <input type="password" id="password" formControlName="password" required>
+
+            <label for="confirmPassword">Bevestig wachtwoord:</label>
+            <input type="confirmPassword" id="confirmPassword" formControlName="confirmPassword" required>
 
             <button type="submit">Registreer</button>
         </form>

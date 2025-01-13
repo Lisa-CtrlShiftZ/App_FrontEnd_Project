@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="main">
+    <div class="filler">
+        <h3>Fijn je weer te zien</h3>
+    </div>
+
+    <div class="register">
+        <div class="text-box">
+            <h1>Log in</h1>
+            <p>Nog geen account?</p>
+            <a routerLink="/register">Registreer</a>
+        </div>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" formControlName="email" required>
+
+            <label for="password">Wachtwoord:</label>
+            <input type="password" id="password" formControlName="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+</div>

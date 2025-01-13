@@ -23,7 +23,7 @@ form {
 input {
     border: none;
     min-height: 50px;
-    min-width: 75px;
+    min-width: 25vw;
     border-radius: 5px;
     background-color: #F4F4F4;
 }
