@@ -83,5 +83,14 @@ button:hover {
     padding: 70px;
 }
 .intro{
+    padding:0px;
+}
+.intro-style{
+    align-content: center;
+    text-align: left;
     padding:100px;
+    padding-left: 250px;
+}
+.intro-style >* {
+    padding: 15px;
 }
