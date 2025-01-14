@@ -17,7 +17,7 @@
 form {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
 }
 
 input {
@@ -38,8 +38,17 @@ h1 {
     text-align: center;
 }
 
-p {
-    text-align: center;
+.switch-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.error-text {
+    color: red;
+    font-size: 0.875rem; /* Slightly smaller than standard text */
+    margin-top: 0.25rem;
 }
 
 /* quote */

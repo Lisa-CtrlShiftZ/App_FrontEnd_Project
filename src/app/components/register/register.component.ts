@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
@@ -8,56 +9,65 @@ import { AuthService } from '../../auth/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(){
-    this.registerForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required])
-    });
-  }
-
   authService = inject(AuthService);
   router = inject(Router);
   http = inject(HttpClient);
 
-  
+ constructor() {
+  this.registerForm = new FormGroup(
+    {
+      name: new FormControl('', [Validators.required]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}'),
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$'),
+      ]),
+      confirmPassword: new FormControl('', [Validators.required]),
+    }
+  );
+}
 
-  public onSubmit() {
-    if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
-      this.authService.signup(this.registerForm.value)
-        .subscribe({
-          next: (data: any) => {
-            console.log(data);
-            this.router.navigate(['/login']);
-          },
-          error: (err) => console.log(err)
-        });
+  private passwordMatchValidator(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+
+    if (password && confirmPassword && password !== confirmPassword) {
+      group.get('confirmPassword')?.setErrors({ mismatch: true });
+    } else {
+      group.get('confirmPassword')?.setErrors(null);
     }
   }
 
-  register(email: string, password: string) {
-    const apiUrl = 'HIER-MOET-EEN-API-LINK';
+  public onSubmit() {
+    if (this.registerForm.valid) {
+      console.log('Form values:', this.registerForm.value);
 
-    // API call to the backend
-    this.http.post(apiUrl, { email, password }).subscribe({
-      next: (response) => {
-        console.log('Registration successful:', response);
-        alert('User registered successfully!');
-      },
-      error: (err) => {
-        console.error('Registration failed:', err);
-        alert('Registration failed. Please try again.');
-      },
-    });
+      // Call signup method from AuthService to send data to API
+      this.authService.signup(this.registerForm.value)
+        .subscribe({
+          next: (data: any) => {
+            console.log('Signup successful:', data);
+            this.router.navigate(['/dashbord']); // Redirect to login after successful signup
+          },
+          error: (err) => {
+            console.error('Error during signup:', err);
+          }
+        });
+    } else {
+      console.log('Form is invalid');
+    }
   }
 }
+
 
 
