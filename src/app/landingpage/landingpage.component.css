@@ -1,0 +1,45 @@
+:root {
+    /*these are the colors the app should have*/
+    --secondary-color: #08342a;
+    --accent-color: #dd5f40;
+    --main-color:  #ffffff;
+
+    /*these are the fonts and expected sizes for it*/
+    --header-font: 'Poppins', sans-serif;
+    --header-font-size: 64px;
+    --header-font-weight: 600; /* Semibold */
+  
+    --subheader-font: 'Poppins', sans-serif;
+    --subheader-font-size: 40px;
+    --subheader-font-weight: 600; /* Semibold */
+  
+    --text-font: 'Open Sans', sans-serif;
+    --text-font-size: 20px;
+    --text-font-weight: 400; /* Regular */
+  }
+  
+  header,.h1 {
+    font-family: var(--header-font);
+    font-size: var(--header-font-size);
+    font-weight: var(--header-font-weight);
+  }
+  
+  .subheader {
+    font-family: var(--subheader-font);
+    font-size: var(--subheader-font-size);
+    font-weight: var(--subheader-font-weight);
+  }
+  
+  p {
+    font-family: var(--text-font);
+    font-size: var(--text-font-size);
+    font-weight: var(--text-font-weight);
+  }
+  img{
+    width: 150px;
+    height: 150px;
+  }
+  .flexbox{
+    display:flex
+  }
+  
