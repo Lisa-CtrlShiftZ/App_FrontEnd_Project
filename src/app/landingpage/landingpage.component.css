@@ -42,4 +42,46 @@
   .flexbox{
     display:flex
   }
+  button {
+    background-color: var(--accent-color); 
+    border: 2px solid var(--accent-color); 
+    padding: 15px 25px;
+    font-family: var(--text-font);
+    font-size: var(--text-font-size);
+    cursor: pointer;
+    outline: none;
+}
+button:hover {
+    background-color:var(--accent-color); 
+    color: var(--main-color);
+}
   
+.intro,.register-bottom{
+    background-color: var(--secondary-color);
+    color: var(--main-color);
+}
+.emergency-package{
+    background-color: var(--accent-color);
+    color: var(--main-color);
+    padding: 100px;
+}
+.centered{
+    margin:auto;
+    width: 50%;
+    text-align: center;
+}
+.padding-survival{
+    padding: 20px 20px;
+}
+.register-bottom{
+    padding: 100px 20px 200px 20px;
+}
+.survival-guide{
+    padding: 70px;
+}
+.how-to-prepare{
+    padding: 70px;
+}
+.intro{
+    padding:100px;
+}
