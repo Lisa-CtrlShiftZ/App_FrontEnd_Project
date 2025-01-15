@@ -41,11 +41,15 @@
             </div>
             <div class="error-text"
                 *ngIf="registerForm.get('password')?.errors?.['pattern'] && registerForm.get('password')?.dirty">
-                <p>Wachtwoord moet minstens 8 karakters zijn, <br> en een lage letter, hoofdletter en cijfer bevatten </p>
+                <p>Wachtwoord moet minstens 8 karakters zijn, <br> en een lage letter, hoofdletter en cijfer bevatten
+                </p>
             </div>
 
             <label for="confirmPassword">Bevestig wachtwoord:</label>
             <input type="password" id="confirmPassword" formControlName="confirmPassword" required>
+            <div class="error-text" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+                <p>Wachtwoorden kom niet overeen</p>
+            </div>
 
             <button type="submit">Registreer</button>
         </form>

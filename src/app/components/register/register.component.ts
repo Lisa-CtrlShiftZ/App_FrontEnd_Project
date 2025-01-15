@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -15,6 +15,7 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  passwordError: string | null = null; 
 
   authService = inject(AuthService);
   router = inject(Router);
@@ -33,20 +34,19 @@ export class RegisterComponent {
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$'),
       ]),
       confirmPassword: new FormControl('', [Validators.required]),
-    }
+    }, { validators : this.passwordMatch }
   );
 }
 
-  private passwordMatchValidator(group: FormGroup) {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
+passwordMatch(control: AbstractControl): {[key: string]: boolean} | null {
+  const password = control.get('password');
+  const confirmPassword = control.get('confirmPassword');
 
-    if (password && confirmPassword && password !== confirmPassword) {
-      group.get('confirmPassword')?.setErrors({ mismatch: true });
-    } else {
-      group.get('confirmPassword')?.setErrors(null);
-    }
-  }
+  if (!password || !confirmPassword) return null;
+   //ternary operator
+  return password.value === confirmPassword.value ? null : { 'mismatch': true };
+}
+
 
   public onSubmit() {
     if (this.registerForm.valid) {
@@ -57,7 +57,7 @@ export class RegisterComponent {
         .subscribe({
           next: (data: any) => {
             console.log('Signup successful:', data);
-            this.router.navigate(['/dashbord']); // Redirect to login after successful signup
+            this.router.navigate(['/']); // Redirect to login after successful signup
           },
           error: (err) => {
             console.error('Error during signup:', err);
@@ -68,6 +68,7 @@ export class RegisterComponent {
     }
   }
 }
+
 
 
 

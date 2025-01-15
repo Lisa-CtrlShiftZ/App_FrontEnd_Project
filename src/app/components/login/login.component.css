@@ -42,6 +42,19 @@ p {
     text-align: center;
 }
 
+.error-text {
+    color: red;
+    font-size: 0.875rem; /* Slightly smaller than standard text */
+    margin-top: 0.25rem;
+}
+
+.switch-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
 /* quote */
 h3 {
     text-align: center;

@@ -4,12 +4,13 @@
     </div>
 
     <div class="register">
-        <div class="text-box">
-            <h1>Log in</h1>
+        <h1>Log in</h1>
+        <div class="switch-page">
             <p>Nog geen account? </p>
             <span><a routerLink="/register">Registreer</a></span>
         </div>
         <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+
             <label for="email">E-mail:</label>
             <input type="text" id="email" formControlName="email" required>
 
@@ -17,6 +18,9 @@
             <input type="password" id="password" formControlName="password" required>
 
             <button type="submit">Login</button>
+            <div class="error-text" *ngIf="loginError">
+                <p>{{ loginError }} <br> Wil je een <span><a routerLink="/register">Account aanmaken?</a></span></p>
+            </div>
         </form>
     </div>
 

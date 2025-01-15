@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { SignupData } from '../models/signup-data';
+import { LoginData } from '../models/login-data';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,12 @@ export class AuthService {
     return this.httpClient.post(`${this.url}/user`, data);
   }
 
-  login(username: string, password: string) {
-    const credentials = { username, password }; // Prepare user credentials.
-    return this.httpClient.post(`${this.url}/user`, credentials)
+  login(data: LoginData) {
+    //endpoint 'login' does not exit yet
+    return this.httpClient.post(`${this.url}/login`, data)
       .pipe(tap((result: any) => {
         if (result.token) {
-          // Store the token in localStorage for future authenticated requests.
+          // token is stored in localStorage for future requests
           localStorage.setItem('authToken', result.token);
           console.log('logged in succesfully!')
         } else {
@@ -35,7 +36,7 @@ export class AuthService {
     localStorage.removeItem('authUser');
   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     return localStorage.getItem('authUser') !== null;
   }
 
