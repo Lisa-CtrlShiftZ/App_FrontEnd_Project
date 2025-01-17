@@ -4,8 +4,7 @@
 
 .filler {
     background-color: #08342A;
-    min-width: 30%;
-    max-width: 30%;
+    width: 30%;
     min-height: 100vh;
 }
 
