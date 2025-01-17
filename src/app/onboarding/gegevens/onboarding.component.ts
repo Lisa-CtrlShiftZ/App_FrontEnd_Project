@@ -19,9 +19,19 @@ export class OnboardingComponent {
   }
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
 
-nextPage() {
+    //Load saved data from sessionStorage if there is any.
+    const savedData = sessionStorage.getItem('formData');
+    if (savedData) {
+      this.formData = JSON.parse(savedData);
+    }
+  }
+
+
+
+  // Save the data to sessionstorage and move to the next step of the form.
+  nextPage() {
   sessionStorage.setItem('formData', JSON.stringify(this.formData));
   this.router.navigate(['onboarding/toevoegen'])
   }

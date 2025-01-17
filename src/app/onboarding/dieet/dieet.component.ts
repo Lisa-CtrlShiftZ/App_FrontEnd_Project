@@ -14,7 +14,13 @@ export class DieetComponent {
     dieet: '',
     allergieen: ''
   }
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+        //Load saved data from sessionStorage if there is any.
+        const savedData = sessionStorage.getItem('formData');
+        if (savedData) {
+          this.formData = JSON.parse(savedData);
+        }
+  }
   
   nextPage() {
     sessionStorage.setItem('formData', JSON.stringify(this.formData));

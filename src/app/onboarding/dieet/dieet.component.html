@@ -17,14 +17,14 @@
             </div>
             <form #dieet="ngForm">
                 <label for="dieet">Dieet</label>
-                <select id="dieet" name="dieet">
-                    <option value="">Geen specifiek dieet</option>
+                <select id="dieet" [(ngModel)]="formData.dieet" name="dieet">
+                    <option value="geen">Geen specifiek dieet</option>
                     <option value="vegetarisch">Vegetarisch</option>
                     <option value="vegan">Vegan</option>
                 </select>
 
                 <label for="allergieen">Allergieën</label>
-                <select id="allergieen" name="allergieen">
+                <select id="allergieen" [(ngModel)]="formData.allergieen" name="allergieen">
                     <option value="">Geen allergieën</option>
                     <option value="gluten">Gluten</option>
                     <option value="soja">Soja</option>
