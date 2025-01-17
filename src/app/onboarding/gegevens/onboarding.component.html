@@ -15,21 +15,25 @@
                 <h1>Account instellen</h1>
                 <p>Wat vragen over jou</p>
             </div>
-            <div class="content">
-                <h2>Naam</h2>
-                <input type="text">
-            </div>
-            <div class="content">
-                <h2>Leeftijd</h2>
-                <input type="number">
-            </div>
-            <div class="content">
-                <h2>Gewicht</h2>
-                <input type="number">
+
+            <form #gegevens="ngForm">
+                <label for="voornaam">Voornaam</label>
+                <input type="text" id="voornaam" [(ngModel)]="formData.voornaam" name="voornaam" required />
+
+                <label for="familienaam">Familienaam</label>
+                <input type="text" id="familienaam" [(ngModel)]="formData.familienaam" name="familienaam" required />
+
+                <label for="geboortedatum">Geboortedatum</label>
+                <input type="date" id="geboortedatum" [(ngModel)]="formData.geboortedatum" name="geboortedatum" required />
+
+                <label for="gewicht">Gewicht</label>
+                <input type="number" id="gewicht" [(ngModel)]="formData.gewicht" name="gewicht" required />
                 <p><em>gewicht gebruiken we om je voedingsbehoefte te bepalen.</em> </p>
-            </div>
-            <button>Volgende</button>
+
+                <button type="button" (click)="nextPage()" [disabled]="!gegevens.valid">Volgende</button>
+            </form>
         </div>
+        
         <div class="rightpane">
             <h3>You don't need to outrun the bear, you just need to kneecap the person beside you.</h3>
         </div>

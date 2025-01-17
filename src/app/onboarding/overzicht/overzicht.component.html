@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>onboarding</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div class="wrapper">
+        <div class="leftpane">
+            <div class="content">
+                <h1>Overzicht</h1>
+                <p>Ga na of uw gegevens correct zijn.</p>
+            </div>
+
+            <div class="persoonlijkeInfo">
+                <p>Voornaam: {{ formData?.voornaam }}</p>
+                <p>Familienaam: {{ formData?.familienaam }}</p>
+                <p>Geboortedatum: {{ formData?.geboortedatum }}</p>
+                <p>Gewicht: {{ formData?.gewicht }}</p>
+                <p>Dieet: {{ formData?.dieet }}</p>
+                <p>Allergie: {{ formData?.allergie }}</p>
+            </div>
+
+        </div>
+        
+        <div class="rightpane">
+            <h3></h3>
+        </div>
+    </div>
+
+</body>
+</html>

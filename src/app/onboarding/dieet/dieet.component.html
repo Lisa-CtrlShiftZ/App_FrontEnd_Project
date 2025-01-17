@@ -1,1 +1,41 @@
-<p>dieet works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dieet</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div class="wrapper">
+        <div class="leftpane">
+            <div class="content">
+                <h1>Dieetwensen</h1>
+                <p>Heb je allergieen</p>
+            </div>
+            <form #dieet="ngForm">
+                <label for="dieet">Dieet</label>
+                <select id="dieet" name="dieet">
+                    <option value="">Geen specifiek dieet</option>
+                    <option value="vegetarisch">Vegetarisch</option>
+                    <option value="vegan">Vegan</option>
+                </select>
+
+                <label for="allergieen">Allergieën</label>
+                <select id="allergieen" name="allergieen">
+                    <option value="">Geen allergieën</option>
+                    <option value="gluten">Gluten</option>
+                    <option value="soja">Soja</option>
+                    <option value="noten">Noten</option>
+                </select>
+                <button type="button" (click)="nextPage()">Volgende</button>
+            </form>
+        </div>
+        <div class="rightpane">
+        </div>
+    </div>
+
+</body>
+</html>

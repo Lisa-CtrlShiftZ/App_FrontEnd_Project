@@ -1,1 +1,44 @@
-<p>duur works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>onboarding</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div class="wrapper">
+        <div class="leftpane">
+            <div class="content">
+                <h1>Hoe lang moet je voedselvoorraad meegan?</h1>
+                <p>Dit kan je later nog aanpassen</p>
+
+            </div>
+            <div class="content">
+                <h2>dit moet zo een lijn met opties worden</h2>
+                <form #duurForm="ngForm">
+                    <label>
+                        <input type="radio" name="duur" [(ngModel)]="formData.duur" value="2" required/> 2 dagen
+                    </label>
+                    <label>
+                        <input type="radio" name="duur" [(ngModel)]="formData.duur" value="5" required/> 5 dagen
+                    </label>
+                    <label>
+                        <input type="radio" name="duur" [(ngModel)]="formData.duur" value="7" required/> 1 week
+                    </label>
+                    <label>
+                        <input type="radio" name="duur" [(ngModel)]="formData.duur" value="14" required/> 2 weken
+                    </label>
+                </form>
+            </div>
+            <button (click)="nextPage()">Verder</button>
+        </div>
+        <div class="rightpane">
+            <h3></h3>
+        </div>
+    </div>
+
+</body>
+</html>

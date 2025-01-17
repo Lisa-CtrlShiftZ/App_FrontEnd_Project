@@ -1,49 +1,54 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import {OnboardingComponent} from './onboarding/gegevens/onboarding.component';
 import { ToevoegenComponent } from './onboarding/toevoegen/toevoegen.component';
 import { PersonenComponent } from './onboarding/personen/personen.component';
 import { DuurComponent } from './onboarding/duur/duur.component';
 import { DieetComponent } from './onboarding/dieet/dieet.component';
 import { BedanktComponent } from './onboarding/bedankt/bedankt.component';
+import { OverzichtComponent } from './onboarding/overzicht/overzicht.component';
 
 export const routes: Routes = [
     {
-        path: 'onboarding',
+        path: 'onboarding/gegevens',
         component: OnboardingComponent,
     },
     {
-        path: 'toevoegen',
+        path: 'onboarding/toevoegen',
         component: ToevoegenComponent,
         title: 'toevoegen',
     },
     {
-        path: 'personen',
+        path: 'onboarding/personen',
         component: PersonenComponent,
         title: 'personen',
     },
     {
-        path: 'duur',
+        path: 'onboarding/duur',
         component: DuurComponent,
         title: 'duur',
     },
     {
-        path: 'dieet',
+        path: 'onboarding/dieet',
         component: DieetComponent,
         title: 'dieet',
     },
     {
-        path: 'bedankt',
+        path: 'onboarding/bedankt',
         component: BedanktComponent,
         title: 'bedankt',
     },
+    {
+        path: 'onboarding/overzicht',
+        component: OverzichtComponent,
+        title: 'overzicht',
+    },
+    
+
 ];
 
-
-        /* path: 'gegevens',
-        loadComponent: () => {
-            return import('./onboarding/gegevens/onboarding.component').then((m) => m.OnboardingComponent)
-        },
-        path: 'toevoegen',
-        loadComponent: () => {
-            return import('./onboarding/toevoegen/toevoegen.component').then((m) => m.ToevoegenComponent)
-        } */
+@NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+})
+export class AppRoutingModule {}

@@ -12,26 +12,15 @@
     <div class="wrapper">
         <div class="leftpane">
             <div class="content">
-                <h1>Account instellen</h1>
-                <p>Wat vragen over jou</p>
+                <h1>Wil je mensen toevoegen aan je groep?</h1>
+                <p>Familieleden, huisgenoten en voorbereidingsgenoten</p>
             </div>
-            <div class="content">
-                <h2>Naam</h2>
-                <input type="text">
-            </div>
-            <div class="content">
-                <h2>Leeftijd</h2>
-                <input type="number">
-            </div>
-            <div class="content">
-                <h2>Gewicht</h2>
-                <input type="number">
-                <p><em>gewicht gebruiken we om je voedingsbehoefte te bepalen.</em> </p>
-            </div>
-            <button>Volgende</button>
+            <button (click)="navigateToPersonen()">Ja, graag</button>
+            <button (click)="navigateToDuur()">Nee, ik gebruik de app voor mezelf</button>
         </div>
         <div class="rightpane">
-            <h3>You don't need to outrun the bear, you just need to kneecap the person beside you.</h3>
+            <h3>When the snows fall and the white winds blow, the lone wolf dies but the pack survives.</h3>
+            <p>George R.R. Martin</p>
         </div>
     </div>
 

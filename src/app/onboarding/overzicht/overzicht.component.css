@@ -19,8 +19,6 @@ h1 {
 }
 
 .leftpane {
-    display: flex;
-    flex-direction: column;
     margin-top: 100px;
     margin-left: 80px;
     padding: 12px;
@@ -29,6 +27,7 @@ h1 {
 }
 
 .rightpane {
+    justify-content: center;
     margin: 0;
     display: flex;
     background-color: #08342a;
@@ -37,7 +36,6 @@ h1 {
     width: 30%;
     min-height: 100vh;
     padding-top: 40px;
-    flex-direction: column;
 }  
 
 h3 {
@@ -58,6 +56,7 @@ input {
     font-size: 24px;
     border: none;
     border-radius: 5px;
+
 }
 
 button {
@@ -68,15 +67,26 @@ button {
     font-size: 20px;
 }
 
-h2, p {
+p {
     margin: 0;
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin-bottom: 0;
 }
 
 .content {
     margin: 10px 0px;
 }
 
-label {
+form {
     display: flex;
+    flex-direction: column;
+}
 
+label {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 600;
 }
