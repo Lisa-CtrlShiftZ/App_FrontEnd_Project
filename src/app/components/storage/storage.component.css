@@ -1,0 +1,82 @@
+:root {
+    /*these are the colors the app should have*/
+    --secondary-color: #08342a;
+    --accent-color: #dd5f40;
+    --main-color:  #ffffff;
+
+    /*these are the fonts and expected sizes for it*/
+    --header-font: 'Poppins', sans-serif;
+    --header-font-size: 64px;
+    --header-font-weight: 600; /* Semibold */
+  
+    --subheader-font: 'Poppins', sans-serif;
+    --subheader-font-size: 40px;
+    --subheader-font-weight: 600; /* Semibold */
+  
+    --text-font: 'Open Sans', sans-serif;
+    --text-font-size: 20px;
+    --text-font-weight: 400; /* Regular */
+  }
+  
+  header,.h1 {
+    font-family: var(--header-font);
+    font-size: var(--header-font-size);
+    font-weight: var(--header-font-weight);
+  }
+  
+  .subheader {
+    font-family: var(--subheader-font);
+    font-size: var(--subheader-font-size);
+    font-weight: var(--subheader-font-weight);
+  }
+  
+  p {
+    font-family: var(--text-font);
+    font-size: var(--text-font-size);
+    font-weight: var(--text-font-weight);
+  }
+  body{
+    margin: 0px;
+    padding:0px;
+    box-sizing: border-box;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+body{
+    margin: 0px;
+    padding:0px;
+    box-sizing: border-box;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.flexbox{
+    display:flex;
+}
+.centered{
+    margin:auto;
+    width: 50%;
+    text-align: center;
+}
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns of equal width */
+    grid-template-rows: auto auto; /* Two rows of automatic height */
+    gap: 10px; /* Optional: Adds space between the divs */
+    width: 100%; /* Adjust to fit your layout */
+    margin: 10px;
+}
+.supply_stats, .storage_box{
+ background-color: gray;
+}
+.storage_container{
+    display: flex; 
+    flex-wrap: wrap;
+}

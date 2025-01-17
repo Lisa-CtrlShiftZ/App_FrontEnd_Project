@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="storage.component.css">
+</head>
+<body>
+    <div>
+        <h1>Uw huidige voedselvoorraad:</h1>
+    </div>
+    <div>
+        <h2 class="centered">Overzicht</h2>
+        <div class="flexbox">
+            <div class="supply_stats">
+                <p>in voorraad:</p>
+                <h1 id="total calories"></h1>
+                <progress id="progress-bar" value="100" max="100"></progress>
+                <p>voeg nog</p>
+                <h1 id="extra calories"></h1>
+                <p>toe om je doel te halen</p>
+            </div>
+            <div class="container">
+                <div class="child supply_stats">
+                    <bar></bar>
+                    <p id="carb_percentage" class="centered"></p>
+                    <p class="centered">koolydraten</p>
+                </div>
+                <div class="child supply_stats">
+                    <bar></bar>
+                    <p id="fat_percentage" class="centered"></p>
+                    <p class="centered">vetten</p>
+                </div>
+                <div class="child supply_stats">
+                    <bar></bar>
+                    <p id="protein_percentage" class="centered"></p>
+                    <p class="centered">proteine</p>
+                </div>
+                <div class="child supply_stats">
+                    <h2>Tip</h2>
+                    <p>streef naar een 60/20/20 verhouding</p>
+                    <p>60% koolydraten</p>
+                    <p>20% protienen</p>
+                    <p>20% vetten</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2 class="centered">Voorraad</h2>
+        <div class="flexbox">
+            <p>sorteer op:</p>
+            <select id="filters"></select>
+        </div>
+        <div id="storage_container" class="storage_box storage_container">
+            <app-storage></app-storage>
+
+        </div>
+        <button (click)="addBox()">Add Box</button>
+    </div>
+</body>
+</html>
