@@ -30,6 +30,13 @@
                 <input type="number" id="gewicht" [(ngModel)]="formData.gewicht" name="gewicht" required />
                 <p><em>gewicht gebruiken we om je voedingsbehoefte te bepalen.</em> </p>
 
+                <label for="dieet">Dieet</label>
+                <select id="dieet" [(ngModel)]="formData.dieet" name="dieet">
+                    <option value="geen">Geen specifiek dieet</option>
+                    <option value="vegetarisch">Vegetarisch</option>
+                    <option value="vegan">Vegan</option>
+                </select>
+
                 <button type="button" (click)="nextPage()" [disabled]="!gegevens.valid">Volgende</button>
             </form>
         </div>

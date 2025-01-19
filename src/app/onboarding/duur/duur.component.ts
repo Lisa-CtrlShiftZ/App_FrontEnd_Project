@@ -25,6 +25,6 @@ export class DuurComponent {
   
   nextPage() {
     sessionStorage.setItem('formData', JSON.stringify(this.formData));
-    this.router.navigate(['onboarding/dieet'])
+    this.router.navigate(['onboarding/overzicht'])
     }
 }

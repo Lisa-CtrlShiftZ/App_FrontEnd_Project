@@ -69,7 +69,6 @@ button {
 
 p {
     margin: 0;
-    margin-bottom: 20px;
 }
 
 h1 {
@@ -91,3 +90,8 @@ label {
     font-weight: 600;
 }
 
+select {
+    width: 30%;
+    font-size: 16px;
+    padding: 6px
+}

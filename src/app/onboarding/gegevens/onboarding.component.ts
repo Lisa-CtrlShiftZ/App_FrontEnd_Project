@@ -16,6 +16,7 @@ export class OnboardingComponent {
     familienaam: '',
     geboortedatum: '' ,
     gewicht: 0,
+    dieet: '',
   }
 
 
