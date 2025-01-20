@@ -32,4 +32,9 @@ export class UserService {
 
     return this.http.get<any>(this.userUrl, { headers });
   }
+
+  //this branch only exists so I can neatly merge two together
+  fakeFunction(){
+    return 1+1; 
+  }
 }
