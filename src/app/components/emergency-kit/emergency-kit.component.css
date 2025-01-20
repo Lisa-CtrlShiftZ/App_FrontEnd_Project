@@ -1,0 +1,139 @@
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+
+section {
+    text-align: center;
+    margin-left: 120px; 
+    margin-right: 120px;
+    /* top-bottom, left-right */
+    padding: 50px 0px;
+}
+
+header {
+    margin-top: 64px;
+    margin-left: 120px; 
+    margin-right: 120px;
+}
+
+label {
+    font-weight: 600;
+}
+
+input {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid;
+
+     /* Only applied when box is checked */
+     &:checked {
+        background-color: #08342A;
+
+        /* Stlying on <label> when box is checked */
+        & + label {
+            text-decoration: line-through;
+            color: #868181d7;
+        }
+     }
+}
+
+.check-item {
+    position: relative;
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding: 20px;
+
+    min-width: 25%;
+
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.check-item:hover .info-icon {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+/* for cards with input */
+.check-item-input {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+
+    position: relative;
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding: 20px;
+
+    min-width: 25%;
+}
+
+.personalize-box {
+    display: flex;
+    gap: 25px;
+
+    padding: 25px 0px;
+    justify-content: center;
+}
+
+.check-item-input:hover .info-icon {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+/* Adjust amount  */
+.adjust-amount {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+
+/* Information icon & bubble */
+
+.info-icon{
+    position: absolute;
+
+    top: 8px;  
+    right: 8px;  
+
+    display: none;
+}
+
+.info-icon img {
+    width: 20px;
+    top: 5px;
+    right: 5px;
+}
+
+.info-bubble {
+    position: absolute;
+    display: none;
+
+    border-radius: 10px;
+    padding: 10px 5px;
+    background-color: #fafafa;
+    width: 300px;
+    z-index: 10;
+
+}
+
+.info-bubble p {
+    font-size: 0.8rem;
+   
+}
+
+.info-icon:hover .info-bubble {
+    display: block;
+}
+
+/* Small animation */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
