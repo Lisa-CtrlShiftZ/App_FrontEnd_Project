@@ -19,13 +19,15 @@ export class AuthService {
   }
 
   login(data: LoginData) {
-    //endpoint 'login' does not exit yet
     return this.httpClient.post(`${this.url}/login`, data)
       .pipe(tap((result: any) => {
         if (result.token) {
           // token is stored in localStorage for future requests
           localStorage.setItem('authToken', result.token);
           console.log('logged in succesfully!')
+          
+          const user = result.user;
+          console.log(user);
         } else {
           throw new Error('Authentication failed.');
         }
