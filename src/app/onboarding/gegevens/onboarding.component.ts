@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { OnboardingService } from '../../onboarding.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,16 +20,16 @@ import { inject, Injectable } from '@angular/core';
 export class OnboardingComponent {
   formData = {
     name: '',
-    lastname: '',
+    last_name: '',
     gender: '',
     height: 0,
     weight: 0,
     diet: '',
-    dateOfBirth: '' ,
+    date_of_birth: '' ,
   }
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private onboardingService: OnboardingService) {
 
     //Load saved data from sessionStorage if there is any.
     const savedData = sessionStorage.getItem('formData');
@@ -45,6 +46,8 @@ export class OnboardingComponent {
 
     // Save data to sessionstorage
     sessionStorage.setItem('formData', JSON.stringify(this.formData));
+
+
 
     // Decclare the API endpoint URL
     const apiUrl = 'http://127.0.0.1:8000/api/family_member';
