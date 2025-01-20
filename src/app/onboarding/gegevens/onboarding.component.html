@@ -18,20 +18,29 @@
 
             <form #gegevens="ngForm">
                 <label for="voornaam">Voornaam</label>
-                <input type="text" id="voornaam" [(ngModel)]="formData.voornaam" name="voornaam" required />
+                <input type="text" id="voornaam" [(ngModel)]="formData.name" name="voornaam" required />
 
                 <label for="familienaam">Familienaam</label>
-                <input type="text" id="familienaam" [(ngModel)]="formData.familienaam" name="familienaam" required />
+                <input type="text" id="familienaam" [(ngModel)]="formData.lastname" name="familienaam" required />
+
+                <label for="gender">Geslacht</label>
+                <select id="gender" [(ngModel)]="formData.gender" name="dieet">
+                    <option value="male">Man</option>
+                    <option value="female">Vrouw</option>
+                </select>
 
                 <label for="geboortedatum">Geboortedatum</label>
-                <input type="date" id="geboortedatum" [(ngModel)]="formData.geboortedatum" name="geboortedatum" required />
+                <input type="date" id="geboortedatum" [(ngModel)]="formData.dateOfBirth" name="geboortedatum" required />
+
+                <label for="hoogte">Hoogte</label>
+                <input type="number" id="hoogte" [(ngModel)]="formData.height" name="hoogte" required />
 
                 <label for="gewicht">Gewicht</label>
-                <input type="number" id="gewicht" [(ngModel)]="formData.gewicht" name="gewicht" required />
+                <input type="number" id="gewicht" [(ngModel)]="formData.weight" name="gewicht" required />
                 <p><em>gewicht gebruiken we om je voedingsbehoefte te bepalen.</em> </p>
 
                 <label for="dieet">Dieet</label>
-                <select id="dieet" [(ngModel)]="formData.dieet" name="dieet">
+                <select id="dieet" [(ngModel)]="formData.diet" name="dieet">
                     <option value="geen">Geen specifiek dieet</option>
                     <option value="vegetarisch">Vegetarisch</option>
                     <option value="vegan">Vegan</option>
