@@ -58,6 +58,7 @@ input {
     font-size: 24px;
     border: none;
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 button {
@@ -71,6 +72,7 @@ button {
 
 .content {
     margin: 10px 0px;
+    
 }
 
 form {
@@ -79,7 +81,14 @@ form {
 }
 
 label {
-    margin-top: 20px;
     font-size: 24px;
     font-weight: 600;
+}
+
+select {
+    width: 30%;
+    font-size: 16px;
+    padding: 6px;
+    margin-bottom: 20px;
+    
 }
