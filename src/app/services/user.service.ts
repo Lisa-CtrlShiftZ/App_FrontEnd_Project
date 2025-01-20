@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,5 +18,18 @@ export class UserService {
   // Fetch a specific user by ID
   getUserDetailsById(userId: number): Observable<any> {
     return this.http.get<any>(`${this.userUrl}/${userId}`);
+
+    
+  }
+
+  // get logged in user 
+  getLoggedInUser(): Observable<any> {
+    const token = localStorage.getItem('authToken'); 
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.get<any>(this.userUrl, { headers });
   }
 }
