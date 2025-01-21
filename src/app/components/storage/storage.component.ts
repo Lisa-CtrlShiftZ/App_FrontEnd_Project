@@ -8,6 +8,43 @@ import { Component } from '@angular/core';
 })
 
 export class StorageComponent {
+  ngOnInit(): void {
+    const displayStat = this.displayStat(0.8,0.5,0.3);
+    this.foodRequest()
+  }
+  foodRequest():void {
+    // this one is made with the help of ai to quickly do testing since i feared,
+    //  i need a translator eventually and currently it does seem like that
+    const app_id = "37f64774"; // Your App ID
+const app_key = "75127a08bd55149fb3131af961244f1d"; // Your App Key
+
+const url = "https://trackapi.nutritionix.com/v2/natural/nutrients"; // Example endpoint for nutrients
+
+// Define the body of the request (example: food item to be analyzed)
+const requestBody = {
+  query: "ananas", // Example food item
+  timezone: "US/Eastern"
+};
+
+// Send the request to Nutritionix API
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "x-app-id": app_id,
+    "x-app-key": app_key
+  },
+  body: JSON.stringify(requestBody)
+})
+  .then(response => response.json()) // Parse the response to JSON
+  .then(data => {
+    console.log("API Response:", data); // Handle the response data
+  })
+  .catch(error => {
+    console.error("Error:", error); // Handle errors
+  });
+  }
+
   openSelectionWindow(): void {
     const openButton = document.getElementById('openWindow') as HTMLButtonElement;
     const closeButton = document.getElementById('closeWindow') as HTMLElement;
@@ -25,9 +62,42 @@ export class StorageComponent {
     closeButton.addEventListener('click', hideWindow);
   }
 
-  displayStat():void{
-    
-  }
+  displayStat(protein_percentage: number,carb_percentage:number,fat_percentage:number): void {
+    const circleProtein = document.getElementById("display_amount_of_protein") as HTMLElement;
+    const percentageProtein = document.getElementById("protein_percentage")as HTMLElement;
+    const circleCarb = document.getElementById("display_amount_of_carb") as HTMLElement;
+    const percentageCarb = document.getElementById("carb_percentage")as HTMLElement;
+    const circleFat = document.getElementById("display_amount_of_fat") as HTMLElement;
+    const percentageFat = document.getElementById("fat_percentage")as HTMLElement;
+
+    if (circleProtein) {
+      const strokeDashoffset =251.2- (188.4 * protein_percentage);
+      circleProtein.style.strokeDashoffset = strokeDashoffset.toString();
+    } 
+    if (percentageProtein) {
+      percentageProtein.textContent = `${protein_percentage*100} %`;
+    }
+
+    if (circleCarb) {
+      const strokeDashoffset =251.2- (188.4 * carb_percentage);
+      circleCarb.style.strokeDashoffset = strokeDashoffset.toString();
+    } 
+
+    if (percentageCarb) {
+      percentageCarb.textContent = `${carb_percentage*100} %`;
+    }
+
+    if (circleFat) {
+      const strokeDashoffset =251.2-(188.4 * fat_percentage);
+      circleFat.style.strokeDashoffset = strokeDashoffset.toString();
+    } else {
+      console.error('Circle element not found!');
+    }
+
+    if (percentageFat) {
+      percentageFat.textContent = `${fat_percentage*100} %`;
+    }
+}
 
   addFood():void{
     const food = {

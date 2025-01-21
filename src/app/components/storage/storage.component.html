@@ -7,7 +7,7 @@
     <div>
         <h2 class="centered">Overzicht</h2>
         <div class="flexbox">
-            <div class="supply_stats">
+            <div class="centered supply_stats total_calories">
                 <p>in voorraad:</p>
                 <h1 id="total calories"></h1>
                 <progress id="progress-bar" value="100" max="100"></progress>
@@ -16,10 +16,10 @@
                 <p>toe om je doel te halen</p>
             </div>
             <div class="container">
-                <div class="supply_stats_container">
-                    <div class="amount_of_carbs supply_stats">
+                <div class="child supply_stats">
+                    <div class="amount_of_carbs supply_stats centered">
                         <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
-                            <circle 
+                            <circle id="display_amount_of_carb"
                                 r="40" 
                                 cx="50" 
                                 cy="50" 
@@ -36,14 +36,40 @@
                 </div>
                 
                 <div class="child supply_stats">
-                    
-                    <p id="fat_percentage" class="centered"></p>
-                    <p class="centered">vetten</p>
+                    <div class="amount_of_fat supply_stats centered">
+                        <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+                            <circle id="display_amount_of_fat"
+                                r="40" 
+                                cx="50" 
+                                cy="50" 
+                                fill="none" 
+                                stroke="blue" 
+                                stroke-width="6" 
+                                stroke-dasharray="251.2" 
+                                stroke-dashoffset="62.8" 
+                                transform="rotate(135, 50, 50)" />
+                        </svg>
+                        <p id="fat_percentage" class="centered"></p>
+                        <p class="centered">vetten</p>
+                    </div>
                 </div>
                 <div class="child supply_stats">
-                    
-                    <p id="protein_percentage" class="centered"></p>
-                    <p class="centered">proteine</p>
+                    <div class="amount_of_protein supply_stats centered">
+                        <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+                            <circle id="display_amount_of_protein"
+                                r="40" 
+                                cx="50" 
+                                cy="50" 
+                                fill="none" 
+                                stroke="blue" 
+                                stroke-width="6" 
+                                stroke-dasharray="251.2" 
+                                stroke-dashoffset="62.8" 
+                                transform="rotate(135, 50, 50)" />
+                        </svg>
+                        <p id="protein_percentage" class="centered"></p>
+                        <p class="centered">proteine</p>
+                    </div>
                 </div>
                 <div class="child supply_stats">
                     <h2 class="centered">Tip</h2>
@@ -59,7 +85,12 @@
         <h2 class="centered">Voorraad</h2>
         <div class="flexbox">
             <p>sorteer op:</p>
-            <select id="filters"></select>
+            <select id="filters">
+                <option value="expirationdate">Verval datum</option>
+                <option value="in_storage">in bezit van</option>
+                <option value="alphabetic">Alfabetisch</option>
+            </select>
+
         </div>
         
         <button id="openWindow" (click)="openSelectionWindow()">add food</button>
@@ -68,7 +99,7 @@
                 <span id="closeWindow" class="close-btn">&times;</span>
                 <p>selecteer het voedsel u wilt toevoegen</p>
                 <input type="search" id="foodName">
-                <div class="flexbox">
+                <div class="flexbox centered">
                     <p>kg:</p>
                     <input type="number" id="foodAmount">
                 </div>

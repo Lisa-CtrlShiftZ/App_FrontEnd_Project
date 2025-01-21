@@ -207,7 +207,8 @@ button.delete-button:hover {
     background-color: #a71d2a; /* Darker red */
 }
 
-
-.child{
-    min-height: 150px;
+.total_calories{
+    height: 100%;
+    margin: 0px;
+    ;
 }
