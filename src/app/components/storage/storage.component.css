@@ -80,3 +80,134 @@ body{
     display: flex; 
     flex-wrap: wrap;
 }
+.storage_element{
+    background-color: green;
+    margin: 10px;
+    padding: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+#displayWindow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.window-content {
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+
+
+
+#circle{
+width: 160px;
+height: 160px;
+padding: 20px;
+border-radius: 50%;
+fill:none;
+stroke:5px black;
+}
+
+/* General container styling */
+#storage_container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between each food item */
+    margin: 20px;
+    padding: 10px;
+    background-color: #f5f5f5; /* Light background for the container */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Individual food item container */
+#storage_element {
+    display: block inline;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff; /* Distinct background color */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Food name styling */
+.food-name {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #333; /* Dark text color */
+    margin-bottom: 5px; /* Space between the name and the amount/expiration */
+}
+
+/* Food amount styling */
+.food-amount {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 5px;
+}
+.food-extra-data{
+    display: flex;
+}
+/* Expiration date styling */
+.food-expiration {
+    font-size: 0.9em;
+    color: #888; /* Subdued color for the date */
+    font-style: italic;
+}
+
+/* Button styling */
+button.edit-button, 
+button.delete-button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+/* Edit button specific styling */
+button.edit-button {
+    background-color: #007bff; /* Blue */
+    color: white;
+}
+
+button.edit-button:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+/* Delete button specific styling */
+button.delete-button {
+    background-color: #dc3545; /* Red */
+    color: white;
+}
+
+button.delete-button:hover {
+    background-color: #a71d2a; /* Darker red */
+}
+
+
+.child{
+    min-height: 150px;
+}
