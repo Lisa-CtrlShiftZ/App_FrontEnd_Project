@@ -2,7 +2,7 @@
     <nav>
         <div class="avatar-box">
             <a href="LINK NAAR PROFIEL"><img src="avatar-placeholder.png" alt="avatar image"></a>
-            <p>Username</p>
+            <p>{{user.name}}</p>
         </div>
     </nav>
     <section>
@@ -35,6 +35,31 @@
         <div class="filler">
 
         </div>
+    </section>
+
+    <!-- ENKEL VOOR TESTING PURPOSES -->
+    <section>
+          <div>
+            <h3>DIT IS ENKEL VOOR TESTING</h3>
+            <p>Familieleden / groepsleden van {{user.name}}:</p>
+        
+            <div class="family-card-container">
+                <div *ngIf="familyData().length > 0; else loading" class="family-cards">
+                    <div *ngFor="let member of familyData()">
+                      <!-- Card for each family member -->
+                      <div class="family-card">
+                        <p>{{ member.name }} {{ member.last_name }}</p>
+                        <p> Dieet: {{member.diet}}</p>
+                        <p> Geboortedatum: {{ member.date_of_birth}}</p>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+                  <ng-template #loading>
+                    <p>Familiegegevens aan het ophalen...</p>
+                  </ng-template>
+             </div>
     </section>
 
     <div class="guides-container">

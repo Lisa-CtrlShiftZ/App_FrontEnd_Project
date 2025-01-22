@@ -1,40 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+ 
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private userUrl = 'http://127.0.0.1:8000/api/user'; // Replace with your actual endpoint
+  private userUrl = 'http://127.0.0.1:8000/api/user';
+  private apiUrl =  'http://127.0.0.1:8000/api/'; 
+
+  user = JSON.parse(localStorage.getItem('user') || 'null');
+  userId = this.user.id; 
 
   constructor(private http: HttpClient) {}
 
   // Fetch all users
-  getAllUsersDetails(): Observable<any> {
+  getAllUsersDetails(){
     return this.http.get<any>(this.userUrl);
   }
 
   // Fetch a specific user by ID
-  getUserDetailsById(userId: number): Observable<any> {
-    return this.http.get<any>(`${this.userUrl}/${userId}`);
-
-    
+  getUserDetailsById(userId: number){
+    return this.http.get(`${this.userUrl}/${userId}`);
   }
 
-  // get logged in user 
-  getLoggedInUser(): Observable<any> {
-    const token = localStorage.getItem('authToken'); 
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-    });
-
-    return this.http.get<any>(this.userUrl, { headers });
+  getUserFamilyMembers(userId: number){
+    return this.http.get(`${this.userUrl}/${userId}/family_member`);
   }
 
-  //this branch only exists so I can neatly merge two together
-  fakeFunction(){
-    return 1+1; 
-  }
 }
+
+
+
+ 
