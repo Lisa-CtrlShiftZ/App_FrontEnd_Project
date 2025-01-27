@@ -139,5 +139,36 @@ export class PersonenComponent {
       alert('Er is iets misgegaan bij het versturen van de familieleden. Probeer het alstublieft opnieuw.');
     }
   }
+
+  // Function to delete the family member currently loaded into the form
+  deleteMember() {
+    // Get the familyMembers array
+    const familyArray = this.familyMembers();
+
+    // Find the index of the current person in the array
+    const index = familyArray.findIndex(member => member.name === this.formData.name && member.last_name ===this.formData.last_name);
+
+    if (index !== -1) {
+      // Delete person from the array
+      familyArray.splice(index, 1);
+
+      // Update the familyMembers array
+      this.familyMembers.set(familyArray);
+
+      // Update the sessionStorage with the modified array
+      sessionStorage.setItem('familyMembers', JSON.stringify(familyArray));
+    }
+
+    // Clear the form data
+    this.formData = {
+      name: '',
+      last_name: '',
+      gender: '',
+      height: 0,
+      weight: 0,
+      diet: '',
+      date_of_birth: '' ,
+    };
+  }
 }
 

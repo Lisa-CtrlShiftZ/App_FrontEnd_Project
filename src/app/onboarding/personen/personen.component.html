@@ -45,6 +45,7 @@
                 </select>
 
                 <button type="button" (click)="addPerson()" [disabled]="!personen.valid">Voeg toe</button>
+                <button type="button" (click)="deleteMember()" [disabled]="!personen.valid || !formData.name">Verwijder persoon</button>
             </form>
         </div>
         <div class="rightpane">
