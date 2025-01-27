@@ -29,9 +29,20 @@ export class OnboardingComponent {
 
   constructor(private router: Router, private onboardingService: OnboardingService) {}
 
+  // Make sure height and weight are not 0 or less
+  validateData(): boolean {
+    if (this.formData.height < 1 || this.formData.weight < 1) {
+      alert('Kijk alstublieft na of de hoogte en gewicht correct zijn ingevuld. Deze kunnen niet kleiner zijn dan 1.');
+      return false;
+    }
+    return true;
+  }
 
   // Save the data to sessionstorage and post to database. Then move to the next step of the form.
   nextPage() {
+
+    // validate input
+    if (this.validateData()) {
     // add user to the array
     this.familyMembers.push({ ...this.formData });
 
@@ -44,6 +55,6 @@ export class OnboardingComponent {
 
   }
 }
-
+}
 
 

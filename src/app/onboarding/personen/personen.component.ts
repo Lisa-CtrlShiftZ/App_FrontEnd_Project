@@ -80,6 +80,11 @@ export class PersonenComponent {
 
   // function to add a family member
   async addPerson() {
+    // data validation before adding person
+    if (!this.validateData()) {
+      return;
+    }
+
     // Retrieve the current family members array from the signal
     const familyArray = this.familyMembers();
 
@@ -180,5 +185,15 @@ export class PersonenComponent {
       date_of_birth: '' ,
     };
   }
+
+  // Make sure height and weight are not 0 or less
+  validateData(): boolean {
+    if (this.formData.height < 1 || this.formData.weight < 1) {
+      alert('Kijk alstublieft na of de hoogte en gewicht correct zijn ingevuld. Deze kunnen niet kleiner zijn dan 1.');
+      return false;
+    }
+    return true;
+  }
+
 }
 
