@@ -9,10 +9,10 @@
         <div class="flexbox">
             <div class="centered supply_stats total_calories">
                 <p>in voorraad:</p>
-                <h1 id="total calories"></h1>
-                <progress id="progress-bar" value="100" max="100"></progress>
+                <h1 id="total_calories"></h1>
+                <progress id="progress_bar_calories" value="100" max="100"></progress>
                 <p>voeg nog</p>
-                <h1 id="extra calories"></h1>
+                <h1 id="extra_calories"></h1>
                 <p>toe om je doel te halen</p>
             </div>
             <div class="container">
@@ -86,7 +86,7 @@
         <div class="flexbox">
             <p>sorteer op:</p>
             <select id="filters">
-                <option value="expirationdate">Verval datum</option>
+                <option value="expiration_date">Verval datum</option>
                 <option value="in_storage">in bezit van</option>
                 <option value="alphabetic">Alfabetisch</option>
             </select>
@@ -108,7 +108,6 @@
                     <input type="date" id="foodExpirationDate">
                 </div>
                 <button (click)="addFood()">add</button>
-                <button (click)="GetallFoodData()">testdata</button>
             </div>
         </div>
         <div id="storage_container" class="storage_box storage_container">
