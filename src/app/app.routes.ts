@@ -5,7 +5,6 @@ import { ToevoegenComponent } from './onboarding/toevoegen/toevoegen.component';
 import { PersonenComponent } from './onboarding/personen/personen.component';
 import { DuurComponent } from './onboarding/duur/duur.component';
 import { BedanktComponent } from './onboarding/bedankt/bedankt.component';
-import { OverzichtComponent } from './onboarding/overzicht/overzicht.component';
 
 export const routes: Routes = [
     {
@@ -32,11 +31,7 @@ export const routes: Routes = [
         component: BedanktComponent,
         title: 'bedankt',
     },
-    {
-        path: 'onboarding/overzicht',
-        component: OverzichtComponent,
-        title: 'overzicht',
-    },
+
     
 
 ];
