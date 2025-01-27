@@ -2,14 +2,9 @@ import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Injectable } from '@angular/core';
 import { OnboardingService } from '../../onboarding.service';
 import { CommonModule } from '@angular/common';
-import { SafeResourceUrl } from '@angular/platform-browser';
 
-@Injectable({
-  providedIn: 'root'
-})
 
 @Component({
   selector: 'app-personen',
@@ -63,10 +58,25 @@ export class PersonenComponent {
 
 
    async nextPage() {
-    sessionStorage.setItem('familyMembers', JSON.stringify(this.familyMembers()));
-    await this.sendAllMembers();
-    this.router.navigate(['onboarding/duur']);
-    };
+    try {
+      // Update sessionStorage with the family members before sending
+      sessionStorage.setItem('familyMembers', JSON.stringify(this.familyMembers()));
+
+      // Send all members to API and check if succesfull
+      const succes = await this.sendAllMembers();
+
+      // if succesfull navigate to onboarding/duur
+      if (succes) {
+      this.router.navigate(['onboarding/duur']);
+      }
+      else {
+        alert('Er is iets misgegaan bij het versturen van de familieleden. Probeer het alstublieft opnieuw.');
+      }}
+    catch (error) {
+      console.error('Error in nextPage:', error);
+      alert('Er is een fout opgetreden. Probeer het opnieuw.');
+    }
+    }
 
   // function to add a family member
   async addPerson() {
@@ -120,7 +130,7 @@ export class PersonenComponent {
   }
 
   // Loop to send all members to api one by one
-  async sendAllMembers() {
+  async sendAllMembers(): Promise<boolean> {
     const apiUrl = 'http://127.0.0.1:8000/api/family_member';
     const familyArray = this.familyMembers();
 
@@ -132,11 +142,11 @@ export class PersonenComponent {
         }
         console.log(`Succesfully added family member: ${member.name}`);
       }
-
+      return true;
     }
     catch (error) {
       console.error('Error sending all family members:', error);
-      alert('Er is iets misgegaan bij het versturen van de familieleden. Probeer het alstublieft opnieuw.');
+      return false;
     }
   }
 
