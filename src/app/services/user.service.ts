@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
  
 
 @Injectable({
@@ -11,6 +12,7 @@ export class UserService {
 
   user = JSON.parse(localStorage.getItem('user') || 'null');
   userId = this.user.id; 
+  familyData = signal<any[]>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -24,9 +26,21 @@ export class UserService {
     return this.http.get(`${this.userUrl}/${userId}`);
   }
 
-  getUserFamilyMembers(userId: number){
-    return this.http.get(`${this.userUrl}/${userId}/family_member`);
+  // getUserFamilyMembers(userId: number){
+  //   return this.http.get(`${this.userUrl}/${userId}/family_member`);
+  // }
+
+  async getUserFamilyMembers(userId: number) {
+    try {
+      const response: any = await lastValueFrom(this.http.get(`${this.userUrl}/${userId}/family_member`));
+
+      console.log('Family members fetched:', response);  
+      return response;
+      
+  } catch (error) {
+      console.log('Error fetching data', error);  
   }
+}
 
 }
 

@@ -36,26 +36,13 @@ export class DashboardComponent implements OnInit {
 
   async getUserFamilyData() {
     try {
-      const response: any = await lastValueFrom(this.userService.getUserFamilyMembers(this.user.id));
-
-      console.log('Family members fetched:', response); // Log raw data to inspect it
-
-      // Proceed only if familyData is an array
-      if (Array.isArray(response)) {
-          this.familyData.set(response);
-          console.log(
-              'Mapped Family members:',
-              this.familyData().map((member: any) => `[${member.name} ${member.last_name}], ${member.diet}`)
-          );
-      } else {
-          console.log('Expected an array, but got:', response);
-      }
-      
-      return response;
-  } catch (error) {
-      console.log('Error fetching data', error);  
+      const response = await this.userService.getUserFamilyMembers(this.user.id);
+      console.log('Family members fetched:', response);
+      this.familyData.set(response); // Update the signal value
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   }
-}
  
 
 }
