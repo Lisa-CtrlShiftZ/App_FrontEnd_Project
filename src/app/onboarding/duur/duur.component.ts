@@ -12,19 +12,20 @@ import { RouterModule } from '@angular/router';
 })
 export class DuurComponent {
 
-  formData = {
-    duur: 0,
-  }
+  timeframe = {
+    amountOfDays: 0,
+  };
+
   constructor(private router: Router) {
         //Load saved data from sessionStorage if there is any.
-        const savedData = sessionStorage.getItem('formData');
+        const savedData = sessionStorage.getItem('timeframe');
         if (savedData) {
-          this.formData = JSON.parse(savedData);
+          this.timeframe = JSON.parse(savedData);
         }
   }
   
   nextPage() {
-    sessionStorage.setItem('formData', JSON.stringify(this.formData));
-    this.router.navigate(['onboarding/overzicht'])
+    sessionStorage.setItem('timeframe', JSON.stringify(this.timeframe));
+    this.router.navigate(['onboarding/bedankt'])
     }
 }

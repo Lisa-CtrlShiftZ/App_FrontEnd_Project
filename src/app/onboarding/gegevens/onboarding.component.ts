@@ -2,13 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
 import { OnboardingService } from '../../onboarding.service';
 
-@Injectable({
-  providedIn: 'root'
-})
 
 @Component({
   selector: 'app-onboarding' ,
@@ -26,47 +21,27 @@ export class OnboardingComponent {
     weight: 0,
     diet: '',
     date_of_birth: '' ,
-  }
+  };
+
+  // initialize the familyMembers array to hold the user's data and family members data.
+  familyMembers: any[] = [];
 
 
-  constructor(private router: Router, private onboardingService: OnboardingService) {
-
-    //Load saved data from sessionStorage if there is any.
-    const savedData = sessionStorage.getItem('formData');
-    if (savedData) {
-      this.formData = JSON.parse(savedData);
-    }
-  }
-
-  http = inject(HttpClient);
+  constructor(private router: Router, private onboardingService: OnboardingService) {}
 
 
   // Save the data to sessionstorage and post to database. Then move to the next step of the form.
   nextPage() {
+    // add user to the array
+    this.familyMembers.push({ ...this.formData });
+
 
     // Save data to sessionstorage
-    sessionStorage.setItem('formData', JSON.stringify(this.formData));
+    sessionStorage.setItem('familyMembers', JSON.stringify(this.familyMembers));
 
+    // navigate to next page
+    this.router.navigate(['onboarding/toevoegen']);
 
-
-    // Decclare the API endpoint URL
-    const apiUrl = 'http://127.0.0.1:8000/api/family_member';
-
-    // Send data to server using POST request.
-    this.http.post(apiUrl, this.formData).subscribe(
-      (response) => {
-        // log succesful response to console
-        console.log('Form succesfully submitted:', response);
-
-        // Navigate to /toevoegen
-        this.router.navigate(['onboarding/toevoegen']);
-      },
-      (error) => {
-        // handle error
-        console.error('Error submitting form:', error);
-        alert('Er is iets misgegaan met het formulier door te sturen. Probeer het alstublieft opnieuw.');
-      }
-    );
   }
 }
 

@@ -4,7 +4,6 @@ import {OnboardingComponent} from './onboarding/gegevens/onboarding.component';
 import { ToevoegenComponent } from './onboarding/toevoegen/toevoegen.component';
 import { PersonenComponent } from './onboarding/personen/personen.component';
 import { DuurComponent } from './onboarding/duur/duur.component';
-import { DieetComponent } from './onboarding/dieet/dieet.component';
 import { BedanktComponent } from './onboarding/bedankt/bedankt.component';
 import { OverzichtComponent } from './onboarding/overzicht/overzicht.component';
 
@@ -27,11 +26,6 @@ export const routes: Routes = [
         path: 'onboarding/duur',
         component: DuurComponent,
         title: 'duur',
-    },
-    {
-        path: 'onboarding/dieet',
-        component: DieetComponent,
-        title: 'dieet',
     },
     {
         path: 'onboarding/bedankt',

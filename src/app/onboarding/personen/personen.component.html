@@ -49,6 +49,11 @@
         </div>
         <div class="rightpane">
             <h3>In je groep</h3>
+            <div *ngFor="let person of familyMembers()">
+                <button (click)="editPerson(person)">
+                    {{ person.name }} {{person.last_name}}
+                </button>
+            </div>
             <button (click)="nextPage()">Gereed en verder</button>
         </div>
     </div>

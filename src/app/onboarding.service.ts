@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { dateTimestampProvider } from 'rxjs/internal/scheduler/dateTimestampProvider';
 
 @Injectable({
   providedIn: 'root'

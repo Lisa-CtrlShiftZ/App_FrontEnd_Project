@@ -14,9 +14,10 @@
             <h1>Bedankt!</h1>
             <h2>Op basis van je gegevens heb je het volgende nodig:</h2>
             <h3>Voedsel</h3>
-            <p>{{ result }}</p>
+            <p>{{ result() }} kcal</p>
             <h3>Water</h3>
-            <button>Verder</button>
+            <p>{{ water() }}L</p>
+            <button type="submit">Verder</button>
         </div>
         <div class="rightpane">
             <h3></h3>
