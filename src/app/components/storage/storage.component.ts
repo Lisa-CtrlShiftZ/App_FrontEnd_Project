@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class StorageComponent implements OnInit {
-  foodList: { food_name: string; amount: string; expiration_date: string;calories_per_kilo: number; protein: number; fats: number; carbs: number }[] = []; 
+  foodList: { name: string; amount: string; expiration_date: string;calories_per_kilo: number; protein: number; fat: number; carbohydrates: number }[] = []; 
 
   ngOnInit(): void {
     this.setupFilterListener();
@@ -20,7 +20,7 @@ export class StorageComponent implements OnInit {
     this.calculateStats()
   }
 
-  async foodRequest(query: string): Promise<{ food_name: string; calories_per_kilo?: number; protein?: number; fats?: number; carbs?: number }[]> {
+  async foodRequest(query: string): Promise<{ name: string; calories_per_kilo?: number; protein?: number; fat?: number; carbohydrates?: number }[]> {
     const url = 'https://trackapi.nutritionix.com/v2/natural/nutrients';
     const app_id = '37f64774';
     const app_key = '75127a08bd55149fb3131af961244f1d';
@@ -45,11 +45,11 @@ export class StorageComponent implements OnInit {
       const data = await response.json();
 
       return data.foods.map((food: any) => ({
-        name: food.food_name,
+        name: food.name,
         calories: food.nf_calories,
         protein: food.nf_protein,
-        fats: food.nf_total_fat,
-        carbs: food.nf_total_carbohydrate,
+        fat: food.nf_total_fat,
+        carbohydrates: food.nf_total_carbohydrate,
       }));
     } catch (error) {
       console.error('Error fetching food data:', error);
@@ -100,7 +100,7 @@ export class StorageComponent implements OnInit {
 
   calculateStats(): void{
     let current_storage_calories = 0;
-
+    const total_calories = 8000;
     this.foodList.forEach((food) => {
       
       console.log("this is hte current total we have in storage"+ current_storage_calories, food.calories_per_kilo)
@@ -108,6 +108,41 @@ export class StorageComponent implements OnInit {
       current_storage_calories += food.calories_per_kilo; // Accumulate calories
       console.log("this is hte current total we have in storage"+ current_storage_calories)
     }
+    console.log("this is hte final total we have in storage"+ current_storage_calories)
+
+    // per 100 calories you consume ideally you have 2.5 and 8.75 g of protein, to simplefy we will go with 5.625 for it
+    // there are gender and goal specific differences there is currently not enough time to take in account with rightnow
+    // source: https://www.liveeatlearn.com/how-many-calories-in-gram-of-protein/
+    // second source: https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/
+    const total_protein_required = total_calories * ( 5.625 / 100 )
+    console.log("here is the total amount of protein you need: " +total_protein_required)
+
+    // per 100 calories you consume ideally you have 15g of protein
+    // once again there are gender and goal specific differences there is currently not enough time to take in account with rightnow
+    // source: https://www.livestrong.com/article/292776-one-gram-of-carbohydrates-has-how-many-calories/
+    // second source: https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/
+    const total_carb_required = total_calories * ( 15 / 100 )
+    console.log("here is the total amount of carb you need: " +total_carb_required)
+
+    // per 100 calories you consume ideally you have 2 and 3.5g of protein, to simplefy we will go with 2.75 for it
+    // once again there are gender and goal specific differences there is currently not enough time to take in account with rightnow
+    // source: https://www.verywellhealth.com/how-many-grams-of-fat-per-day-8421874
+    // second source: https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/
+    // third source: https://www.who.int/news-room/fact-sheets/detail/healthy-diet
+    const total_fat_required = total_calories * ( 2.75 / 100 )
+    console.log("here is the total amount of fat you need: " +total_fat_required)
+    const current_protein = this.foodList.reduce((total, item) => {
+      return total + item.protein * parseFloat(item.amount);
+    }, 0);
+    console.log("current percentage of protein"+ current_protein)
+    const current_carb = this.foodList.reduce((total, item) => {
+      return total + item.protein * parseFloat(item.amount);
+    }, 0);
+    const current_fat = this.foodList.reduce((total, item) => {
+      return total + item.protein * parseFloat(item.amount);
+    }, 0);
+
+    this.displayStat( current_protein /total_protein_required, current_carb/total_carb_required, current_fat/total_fat_required)
   });
   }
 
@@ -162,29 +197,54 @@ export class StorageComponent implements OnInit {
       return undefined;
     }
 
-    const {  carbs, fats, protein,calories_per_kilo } = foodData[0];
+    const {  carbohydrates, fat, protein,calories_per_kilo } = foodData[0];
+    console.log("fetched stats:" +carbohydrates,fat,protein,calories_per_kilo)
+
+    //hardcoded test value
+    const user_id = 2
 
     const food = {
-      food_name: (document.getElementById("foodName") as HTMLInputElement).value,
+      user_id:user_id,
+      name: (document.getElementById("foodName") as HTMLInputElement).value,
       amount: (document.getElementById("foodAmount") as HTMLInputElement).value,
       expiration_date: (document.getElementById("foodExpirationDate") as HTMLInputElement).value,
       calories_per_kilo:calories_per_kilo?? 0,
-      carbs:carbs?? 0,
-      fats: fats?? 0,
+      carbohydrates:carbohydrates?? 0,
+      fat: fat?? 0,
       protein: protein ??0
     };
     this.FoodELement(food)
     this.foodList.push(food)
     console.log("this is all the currently displayed food: "+ this.foodList)
     //this part will send the newly added food element to the backend database
-    const apiUrl = "http://127.0.0.1:8000/api/food";
-    const response = await fetch(apiUrl, {
+    const apiFoodUrl = "http://127.0.0.1:8000/api/food";
+    const apiUser_foodUrl = "http://127.0.0.1:8000/api/user_food"
+    console.log(JSON.stringify(food));
+
+    const response = await fetch(apiFoodUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(food)
     });
+    if (!response.ok) {
+    const error = await response.text(); // Capture the server's error message
+    console.error(`Server error: ${response.status} - ${error}`);
+    return undefined;
+  }
+  const connectionUserFood = await fetch(apiUser_foodUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(food)
+  });
+  if (!response.ok) {
+  const error = await response.text(); // Capture the server's error message
+  console.error(`Server error: ${response.status} - ${error}`);
+  return undefined;
+}
     const food_id = await response.json();
     return food_id;
     }catch{
@@ -216,6 +276,7 @@ export class StorageComponent implements OnInit {
       console.error("Dropdown with ID 'filters' not found!");
     }
   }
+
   clearList(){
     const container = document.getElementById('storage_container') as HTMLDivElement;
 
@@ -225,7 +286,7 @@ export class StorageComponent implements OnInit {
   }
   
   sortAlphabetically() {
-    this.foodList.sort((a, b) => a.food_name.localeCompare(b.food_name));
+    this.foodList.sort((a, b) => a.name.localeCompare(b.name));
     console.log("foodlist:"+this.foodList)
     this.clearList()
     for (const food of this.foodList) {
@@ -266,29 +327,28 @@ export class StorageComponent implements OnInit {
             return response.json(); // Parse the response JSON
         })
         .then((data) => {
-            // Filter the data to include only items with the matching user ID
             console.log("food has been found", data)
-            foodConnection= data.filter((item: any) => item.user_id === userId);
-            console.log("food has been found", foodConnection.length)
-            // Display the filtered data
-            const container = document.getElementById('storage_container') as HTMLDivElement;
-            if (!container) {
-                console.error('Storage container not found!');
-                return;
-            }
+            foodConnection = data.filter((item: any) => item.user_id === userId).map((item: any) => {
+              // Renaming here to name to name so it can be used everywhere as just name
+              return {
+                  ...item,
+                  name: item.food_name, 
+                  food_name: undefined 
+              };
+          });
             foodConnection.forEach((food) => {
               // Log each food item's details to verify
              this.FoodELement(food)
              this.foodList.push(food)
              this.calculateStats()
-              console.log(`Food Item - User ID: ${food.user_id}, Expiration Date: ${food.expiration_date},everything:${food.food_name}`);
+              console.log(`Food Item - User ID: ${food.user_id}, Expiration Date: ${food.expiration_date},everything:${food.name}`);
           });
         }
       )
   }
 
 
-  FoodELement(food: { food_name: string; amount: string; expiration_date: string }): void {
+  FoodELement(food: { name: string; amount: string; expiration_date: string }): void {
     console.log('AddBox function triggered');
     const container = document.getElementById('storage_container') as HTMLDivElement;
 
@@ -305,7 +365,7 @@ export class StorageComponent implements OnInit {
         foodExtraData.className = "food-extra-data"
 
         const foodNameLabel = document.createElement("label");
-        foodNameLabel.textContent = food.food_name;
+        foodNameLabel.textContent = food.name;
         foodNameLabel.className = 'food-name';
 
         const foodAmountLabel = document.createElement("label");
