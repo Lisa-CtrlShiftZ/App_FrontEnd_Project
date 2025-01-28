@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>onboarding</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div class="wrapper">
+        <div class="leftpane">
+            <div class="content">
+                <p>profilepic</p>
+                <p>naam user</p>
+                <button type="button" (click)="showAccount()">accountgegevens</button>
+                <button type="button" (click)="showFamily()">familie beheren</button>
+            </div>
+            <div class="logout">
+                <button type="button">Uitloggen</button>
+            </div>
+
+        </div>
+        <div class="rightpane">
+            @if (accountVisible) {
+                <label for="userName">Naam</label>
+                <input type="text" id="userName" formControlName="userName" required>
+
+                <label for="email">E-mail</label>
+                <input type="text" id="email" formControlName="email" required>
+
+                <h2>Wachtwoord</h2>
+
+                <label for="currentPassword">Huidig wachtwoord</label>
+                <input type="password" id="currentPassword" formControlName="currentPassword" required>
+
+                <label for="repeatPassword">Huidig wachtwoord herhalen</label>
+                <input type="password" id="repeatPassword" formControlName="repeatPassword" required>
+
+                <label for="newPassword">Nieuw wachtwoord</label>
+                <input type="password" id="newPassword" formControlName="newPassword" required>
+
+                <button type="button">Wijzigingen opslaan</button>
+            }
+            @else if (familyVisible) {
+                <h2>Familie beheren</h2>
+            }
+
+        </div>
+    </div>
+
+</body>
+</html>
