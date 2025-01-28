@@ -16,7 +16,7 @@ export class EmergencyKitComponent implements OnInit{
   url = 'http://127.0.0.1:8000/api';
 
   familyData = signal<any[]>([]);
-  diapersInStock = signal<any[]>([]);
+  diapersInStock = 0;
   padsInStock = signal<any[]>([]);
 
   user = JSON.parse(localStorage.getItem('user') || 'null ');
@@ -118,8 +118,7 @@ export class EmergencyKitComponent implements OnInit{
 
       //fetch and set diapers
       const diapers = response.find((item: { supply_name: string; }) => item.supply_name === 'Diapers');
-      const diapersQuantity = diapers.quantity; 
-      this.diapersInStock.set(diapersQuantity);  
+      this.diapersInStock = diapers.quantity;  
 
       //fetch and set sanitary pads
       const pads = response.find((item: {supply_name:string}) => item.supply_name === "Sanitary Pads");
@@ -141,4 +140,16 @@ export class EmergencyKitComponent implements OnInit{
   dismiss(){
     this.isMessageVisible = false;
   }
+
+  plus() {
+    this.diapersInStock++;
+  }
+
+  minus(){
+    if (this.diapersInStock > 0){
+      this.diapersInStock--; 
+    }
+  }
 }
+
+ 

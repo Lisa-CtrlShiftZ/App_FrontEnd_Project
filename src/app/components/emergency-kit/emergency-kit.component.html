@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <div class="adjust-amount">
-                    <button class="min-plus" onclick="plus()">+</button><input type="text" [value]="diapersInStock()"><button class="min-plus" onclick="minus()">-</button>
+                    <button class="min-plus" (click)="plus()">+</button><input type="text" [(ngModel)]="diapersInStock" name="diaper" [value]="diapersInStock"><button class="min-plus" (click)="minus()">-</button>
                 </div>
             </div>
         </div>
