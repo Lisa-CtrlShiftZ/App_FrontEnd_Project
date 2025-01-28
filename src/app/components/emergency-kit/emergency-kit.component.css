@@ -113,8 +113,8 @@ input {
 
 .info-bubble {
     position: absolute;
-    display: none;
-
+    visibility: hidden;
+     
     border-radius: 10px;
     padding: 10px 5px;
     background-color: #fafafa;
@@ -129,7 +129,7 @@ input {
 }
 
 .info-icon:hover .info-bubble {
-    display: block;
+    visibility: visible;
 }
 
 /* Small animation */
@@ -137,3 +137,21 @@ input {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
+
+/* first visit */
+.first-visit{
+    border-radius: 10px;
+    background-color: #fafafa;
+    padding: 25px 50px;
+}
+
+.dismiss-button {
+    outline: none;
+    box-shadow: none;
+    border: none;
+
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #08342A;
+    color: white;
+}

@@ -34,6 +34,16 @@ nav img {
   text-align: center;
 }
 
+.option-item-special {
+    padding: 25px 25px;
+    background-color: #08342A;
+    color: white;
+}
+
+.option-item-special p{
+   padding: 0px 25px;
+}
+
 .option-item img {
    width: 25%;
   }
@@ -41,6 +51,11 @@ nav img {
 .avatar-box {
     flex-direction: column;
     margin-right: 120px;
+}
+
+.avatar-box p {
+    text-align: center;
+    font-weight: 600;
 }
 
 a {
