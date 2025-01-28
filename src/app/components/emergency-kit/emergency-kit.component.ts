@@ -16,6 +16,9 @@ export class EmergencyKitComponent implements OnInit{
   url = 'http://127.0.0.1:8000/api';
 
   familyData = signal<any[]>([]);
+  diapersInStock = signal<any[]>([]);
+  padsInStock = signal<any[]>([]);
+
   user = JSON.parse(localStorage.getItem('user') || 'null ');
   userId = this.user.id;
 
@@ -32,13 +35,12 @@ export class EmergencyKitComponent implements OnInit{
 
  //Will be fetched later. Prep time in weeks
   prepareTime = 8; 
- 
-
   
   constructor(private userService: UserService) {}
 
   async ngOnInit(): Promise<void> {
     await this.getUserFamilyData(); 
+    await this.getSuppliesInStock(); 
     this.analyzeFamily(); 
     // calculate all items needed 
     this.diapersNeeded = this.calculateDiapers(this.prepareTime);
@@ -107,6 +109,25 @@ export class EmergencyKitComponent implements OnInit{
     let sanitaryPadsNeeded = prepTimeInMonths * 25;
     // Return amount rounded down 
     return Math.floor(sanitaryPadsNeeded); 
+  }
+
+  async getSuppliesInStock(){
+    try {
+      const response = await this.userService.getCurrentSupplies(this.user.id);
+      console.log('Supplies in stock:', response);
+
+      //fetch and set diapers
+      const diapers = response.find((item: { supply_name: string; }) => item.supply_name === 'Diapers');
+      const diapersQuantity = diapers.quantity; 
+      this.diapersInStock.set(diapersQuantity);  
+
+      //fetch and set sanitary pads
+      const pads = response.find((item: {supply_name:string}) => item.supply_name === "Sanitary Pads");
+      const padsQuantity = pads.quantity; 
+      this.padsInStock.set(padsQuantity)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   }
 
   firstTimeVisitor(){
