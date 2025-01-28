@@ -71,53 +71,72 @@
 </section>
 
 <section>
+    <div class="first-visit">
+        <p>Op basis van uw gezinssamenstelling zijn er wat opties voor u aangevinkt. Deze kunt u zelf aanpassen. </p>
+        <button id="dismiss" class="dismiss-button" onclick="dismiss()">Oké</button>
+    </div>
     <h3>Gepersonaliseerde suggesties</h3>
     <div class="personalize-box">
         <div class="personalized-item">
-            <input type="checkbox" id="woman" name="woman">
+            <input type="checkbox" id="woman" name="woman" [(ngModel)]="isWoman">
             <label for="woman">Vrouw</label>
         </div>
         <div class="personalized-item">
-            <input type="checkbox" id="baby" name="baby">
+            <input type="checkbox" id="baby" name="baby" [(ngModel)]="isBaby">
             <label for="baby">Baby</label>
         </div>
         <div class="personalized-item">
             <input type="checkbox" id="elder" name="elder">
             <label for="elder">Oudere</label>
         </div>
+        <div class="personalized-item">
+            <input type="checkbox" id="vegan" name="vegan" [(ngModel)]="isVegan">
+            <label for="vegan">Vegan</label>
+        </div>
     </div>
     <form>
-        <div class="check-item-input">
-            <div>
-                <h3>{{diapersNeeded}} Pampers</h3>
-                <p>Op voorraad:</p>
-            </div>
-            <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
-                <div class="info-bubble">
-                    <p>U kunt herbruikbare luiers overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.</p>
+        <div *ngIf="isWoman">
+            <div class="check-item-input">
+                <div>
+                    <h3>{{sanitaryPadsNeeded}} Maandverband / tampons</h3>
+                    <p>Op voorraad:</p>
+                </div>
+                <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
+                    <div class="info-bubble">
+                        <p>U kunt herbruikbaar maandverband of een menstruatiecup overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.</p>
+                    </div>
+                </div>
+                <div class="adjust-amount">
+                    <button>+</button><input type="text"><button>-</button>
                 </div>
             </div>
-            <div class="adjust-amount">
-                <button>+</button><input type="text"><button>-</button>
-            </div>
         </div>
-        <div class="check-item-input">
-            <div>
-                <h3>{{sanitaryPadsNeeded}} Maandverband / tampons</h3>
-                <p>Op voorraad:</p>
-            </div>
-            <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
-                <div class="info-bubble">
-                    <p>U kunt herbruikbaar maandverband of een menstruatiecup overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.</p>
+        <div *ngIf="isBaby">
+            <div class="check-item-input">
+                <div>
+                    <h3>{{diapersNeeded}} Pampers</h3>
+                    <p>Op voorraad:</p>
+                </div>
+                <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
+                    <div class="info-bubble">
+                        <p>U kunt herbruikbare luiers overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.</p>
+                    </div>
+                </div>
+                <div class="adjust-amount">
+                    <button>+</button><input type="text"><button>-</button>
                 </div>
             </div>
-            <div class="adjust-amount">
-                <button>+</button><input type="text"><button>-</button>
-            </div>
         </div>
-        <div class="check-item">
-            <input type="checkbox" id="pads" name="pads">
-            <label for="pads">Maandverband</label>
+        <div *ngIf="isVegan">
+            <div class="check-item-input">
+                <div>
+                    <h3>Vitamine B12</h3>
+                    <p>Op voorraad:</p>
+                </div>
+                <div class="adjust-amount">
+                    <button>+</button><input type="text"><button>-</button>
+                </div>
+            </div>
         </div>
     </form>
 </section>
