@@ -23,7 +23,7 @@ label {
     font-weight: 600;
 }
 
-input {
+.check-item input {
     width: 1.25rem;
     height: 1.25rem;
     border: 1px solid;
@@ -38,6 +38,18 @@ input {
             color: #868181d7;
         }
      }
+}
+
+.personalized-item input[type="checkbox"]{
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid;
+}
+
+.adjust-amount input[type="text"] {
+    max-width: 60px; 
+    box-sizing: border-box; 
+    border: none;
 }
 
 .check-item {
@@ -69,9 +81,17 @@ input {
     border-radius: 10px;
     padding: 20px;
 
-    min-width: 25%;
+    min-width: 250px;
 }
 
+.min-plus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+
+    padding: 10px 20px;
+    border-radius: 5px;
+}
 .personalize-box {
     display: flex;
     gap: 25px;

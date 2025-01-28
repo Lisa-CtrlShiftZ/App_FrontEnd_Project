@@ -19,7 +19,10 @@ export class EmergencyKitComponent implements OnInit{
   user = JSON.parse(localStorage.getItem('user') || 'null ');
   userId = this.user.id;
 
-  //set inital value
+  //html
+  isMessageVisible = true;
+
+  //set inital values
   diapersNeeded: number = 0;
   sanitaryPadsNeeded: number = 0;
   isWoman: boolean = false;
@@ -28,7 +31,9 @@ export class EmergencyKitComponent implements OnInit{
   isVegan: boolean = false; 
 
  //Will be fetched later. Prep time in weeks
-  prepareTime = 4; 
+  prepareTime = 8; 
+ 
+
   
   constructor(private userService: UserService) {}
 
@@ -93,7 +98,6 @@ export class EmergencyKitComponent implements OnInit{
 }
   
   calculateDiapers(prepareTime: number){
-    //7 a day is 49 a week, no joke
      let diapersNeeded = prepareTime * 49;
      return diapersNeeded;
   }
@@ -111,5 +115,9 @@ export class EmergencyKitComponent implements OnInit{
       
       // window.localStorage['isReturningVisitor'] = true;
   }
+  }
+
+  dismiss(){
+    this.isMessageVisible = false;
   }
 }

@@ -71,15 +71,15 @@
 </section>
 
 <section>
-    <div class="first-visit">
+    <div class="first-visit" *ngIf="isMessageVisible">
         <p>Op basis van uw gezinssamenstelling zijn er wat opties voor u aangevinkt. Deze kunt u zelf aanpassen. </p>
-        <button id="dismiss" class="dismiss-button" onclick="dismiss()">Oké</button>
+        <button class="dismiss-button" (click)="dismiss()">Oké</button>
     </div>
     <h3>Gepersonaliseerde suggesties</h3>
     <div class="personalize-box">
         <div class="personalized-item">
             <input type="checkbox" id="woman" name="woman" [(ngModel)]="isWoman">
-            <label for="woman">Vrouw</label>
+            <label for="woman">Menstruatie</label>
         </div>
         <div class="personalized-item">
             <input type="checkbox" id="baby" name="baby" [(ngModel)]="isBaby">
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="adjust-amount">
-                    <button>+</button><input type="text"><button>-</button>
+                    <button class="min-plus">+</button><input type="text"><button class="min-plus">-</button>
                 </div>
             </div>
         </div>
@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <div class="adjust-amount">
-                    <button>+</button><input type="text"><button>-</button>
+                    <button class="min-plus" onclick="plus()">+</button><input type="text" value="1"><button class="min-plus" onclick="minus()">-</button>
                 </div>
             </div>
         </div>
