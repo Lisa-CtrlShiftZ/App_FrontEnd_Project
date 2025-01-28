@@ -1,0 +1,142 @@
+<header>
+    <h3>Noodpakket samenstellen</h3>
+    <p>Een noodpakket is een goede manier om voorbereid te zijn op de meeste situaties</p>
+</header>
+<section>
+    <h3>Algemeen</h3>
+    <form>
+        <div class="check-item">
+            <input type="checkbox" id="flashlight" name="flashlight">
+            <label for="flashlight">Zaklamp</label>
+            <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
+                <div class="info-bubble">
+                    <p>Voor het geval elektriciteit uitvalt</p>
+                </div>
+            </div>
+        </div>
+        <div class="check-item">
+            <input type="checkbox" id="powerbank" name="powerbank">
+            <label for="powerbank">Powerbank</label>
+        </div>
+        <div class="check-item">
+            <input type="checkbox" id="first-aid" name="first-aid">
+            <label for="first-aid">EHBO-doos</label>
+        </div>
+        <div class="check-item">
+            <input type="checkbox" id="matches" name="matches">
+            <label for="matches">Lucifers</label>
+            <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
+                <div class="info-bubble">
+                    <p>Zorg dat deze niet nat kunnen worden, bijvoorbeeld door ze in een afsluitbaar plastic zakje te bewaren</p>
+                </div>
+            </div>
+        </div>
+        <div class="check-item">
+            <input type="checkbox" id="whistle" name="whistle">
+            <label for="whistle">Fluitje</label>
+            <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
+                <div class="info-bubble">
+                    <p>Helpt hulpdiensten u te vinden</p>
+                </div>
+            </div>
+        </div>
+        <div class="check-item">
+            <input type="checkbox" id="documents" name="documents">
+            <label for="documents">Kopie van belangrijke documenten</label>
+            <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
+                <div class="info-bubble">
+                    <p>Denk aan uw identiteitsbewijs en verzekeringspapieren</p>
+                </div>
+            </div>
+        </div>
+        <div class="check-item">
+            <input type="checkbox" id="radio" name="radio">
+            <label for="radio">Radio</label>
+            <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
+                <div class="info-bubble">
+                    <p>Zorgt dat u op de hoogte kunt blijven van de sitatuatie, ook als het internet wegvalt</p>
+                </div>
+            </div>
+        </div>
+        <div class="check-item">
+            <input type="checkbox" id="blankets" name="blankets">
+            <label for="blankets">Dekens / slaapzak</label>
+            <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
+                <div class="info-bubble">
+                    <p>Zorgt dat u warm blijft</p>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<section>
+    <div class="first-visit" *ngIf="isMessageVisible">
+        <p>Op basis van uw gezinssamenstelling zijn er wat opties voor u aangevinkt. Deze kunt u zelf aanpassen. </p>
+        <button class="dismiss-button" (click)="dismiss()">Oké</button>
+    </div>
+    <h3>Gepersonaliseerde suggesties</h3>
+    <div class="personalize-box">
+        <div class="personalized-item">
+            <input type="checkbox" id="woman" name="woman" [(ngModel)]="isWoman">
+            <label for="woman">Menstruatie</label>
+        </div>
+        <div class="personalized-item">
+            <input type="checkbox" id="baby" name="baby" [(ngModel)]="isBaby">
+            <label for="baby">Baby</label>
+        </div>
+        <div class="personalized-item">
+            <input type="checkbox" id="elder" name="elder">
+            <label for="elder">Oudere</label>
+        </div>
+        <div class="personalized-item">
+            <input type="checkbox" id="vegan" name="vegan" [(ngModel)]="isVegan">
+            <label for="vegan">Vegan</label>
+        </div>
+    </div>
+    <form>
+        <div *ngIf="isWoman">
+            <div class="check-item-input">
+                <div>
+                    <h3>{{sanitaryPadsNeeded}} Maandverband / tampons</h3>
+                    <p>Op voorraad:</p>
+                </div>
+                <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
+                    <div class="info-bubble">
+                        <p>U kunt herbruikbaar maandverband of een menstruatiecup overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.</p>
+                    </div>
+                </div>
+                <div class="adjust-amount">
+                    <button class="min-plus">+</button><input type="text" [value]="padsInStock()"><button class="min-plus">-</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isBaby">
+            <div class="check-item-input">
+                <div>
+                    <h3>{{diapersNeeded}} Pampers</h3>
+                    <p>Op voorraad:</p>
+                </div>
+                <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
+                    <div class="info-bubble">
+                        <p>U kunt herbruikbare luiers overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.</p>
+                    </div>
+                </div>
+                <div class="adjust-amount">
+                    <button class="min-plus" onclick="plus()">+</button><input type="text" [value]="diapersInStock()"><button class="min-plus" onclick="minus()">-</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isVegan">
+            <div class="check-item-input">
+                <div>
+                    <h3>Vitamine B12</h3>
+                    <p>Op voorraad:</p>
+                </div>
+                <div class="adjust-amount">
+                    <button>+</button><input type="text"><button>-</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
