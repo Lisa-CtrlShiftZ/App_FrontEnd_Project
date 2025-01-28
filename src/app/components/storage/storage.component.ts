@@ -110,26 +110,26 @@ export class StorageComponent implements OnInit {
     }
     console.log("this is hte final total we have in storage"+ current_storage_calories)
 
-    // per 100 calories you consume ideally you have 2.5 and 8.75 g of protein, to simplefy we will go with 5.625 for it
+    // per 1000 calories you consume ideally you have 25 and 87.5 g of protein, to simplefy we will go with 56.25g for it
     // there are gender and goal specific differences there is currently not enough time to take in account with rightnow
     // source: https://www.liveeatlearn.com/how-many-calories-in-gram-of-protein/
     // second source: https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/
-    const total_protein_required = total_calories * ( 5.625 / 100 )
+    const total_protein_required = total_calories * ( 56.25 / 1000 )
     console.log("here is the total amount of protein you need: " +total_protein_required)
 
-    // per 100 calories you consume ideally you have 15g of protein
+    // per 1000 calories you consume ideally you have 150g of protein
     // once again there are gender and goal specific differences there is currently not enough time to take in account with rightnow
     // source: https://www.livestrong.com/article/292776-one-gram-of-carbohydrates-has-how-many-calories/
     // second source: https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/
-    const total_carb_required = total_calories * ( 15 / 100 )
+    const total_carb_required = total_calories * ( 150 / 1000 )
     console.log("here is the total amount of carb you need: " +total_carb_required)
 
-    // per 100 calories you consume ideally you have 2 and 3.5g of protein, to simplefy we will go with 2.75 for it
+    // per 1000 calories you consume ideally you have 20 and 35 g of protein, to simplefy we will go with 27.5g for it
     // once again there are gender and goal specific differences there is currently not enough time to take in account with rightnow
     // source: https://www.verywellhealth.com/how-many-grams-of-fat-per-day-8421874
     // second source: https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/
     // third source: https://www.who.int/news-room/fact-sheets/detail/healthy-diet
-    const total_fat_required = total_calories * ( 2.75 / 100 )
+    const total_fat_required = total_calories * ( 27.5 / 1000 )
     console.log("here is the total amount of fat you need: " +total_fat_required)
     const current_protein = this.foodList.reduce((total, item) => {
       return total + item.protein * parseFloat(item.amount);
@@ -155,7 +155,7 @@ export class StorageComponent implements OnInit {
     const percentageFat = document.getElementById("fat_percentage")as HTMLElement;
 
     if (circleProtein) {
-      const strokeDashoffset =251.2- (188.4 * protein_percentage);
+      const strokeDashoffset =251.2- (188.4 * Math.min(protein_percentage,1));
       circleProtein.style.strokeDashoffset = strokeDashoffset.toString();
     } 
     if (percentageProtein) {
@@ -163,7 +163,7 @@ export class StorageComponent implements OnInit {
     }
 
     if (circleCarb) {
-      const strokeDashoffset =251.2- (188.4 * carb_percentage);
+      const strokeDashoffset =251.2- (188.4 * Math.min(carb_percentage,1));
       circleCarb.style.strokeDashoffset = strokeDashoffset.toString();
     } 
 
@@ -172,7 +172,7 @@ export class StorageComponent implements OnInit {
     }
 
     if (circleFat) {
-      const strokeDashoffset =251.2-(188.4 * fat_percentage);
+      const strokeDashoffset =251.2-(188.4 * Math.min(fat_percentage,1));
       circleFat.style.strokeDashoffset = strokeDashoffset.toString();
     } else {
       console.error('Circle element not found!');
@@ -205,6 +205,7 @@ export class StorageComponent implements OnInit {
 
     const food = {
       user_id:user_id,
+      food_id:0,
       name: (document.getElementById("foodName") as HTMLInputElement).value,
       amount: (document.getElementById("foodAmount") as HTMLInputElement).value,
       expiration_date: (document.getElementById("foodExpirationDate") as HTMLInputElement).value,
@@ -213,12 +214,14 @@ export class StorageComponent implements OnInit {
       fat: fat?? 0,
       protein: protein ??0
     };
+
     this.FoodELement(food)
     this.foodList.push(food)
     console.log("this is all the currently displayed food: "+ this.foodList)
     //this part will send the newly added food element to the backend database
     const apiFoodUrl = "http://127.0.0.1:8000/api/food";
     const apiUser_foodUrl = "http://127.0.0.1:8000/api/user_food"
+
     console.log(JSON.stringify(food));
 
     const response = await fetch(apiFoodUrl, {
@@ -233,6 +236,11 @@ export class StorageComponent implements OnInit {
     console.error(`Server error: ${response.status} - ${error}`);
     return undefined;
   }
+
+  const data = await response.json();
+  food.food_id = data.id
+  console.log("this is all the data food contains before sending it to the connection: "+ food.food_id,food.user_id, food.amount,food.expiration_date)
+
   const connectionUserFood = await fetch(apiUser_foodUrl, {
     method: "POST",
     headers: {
