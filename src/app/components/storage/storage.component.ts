@@ -8,13 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class StorageComponent implements OnInit {
-  foodList: { name: string; amount: string; expiration_date: string;calories_per_kilo: number; protein: number; fat: number; carbohydrates: number }[] = []; 
+  foodList: { name: string; id: number; amount: string; expiration_date: string; calories_per_kilo: number; protein: number; fat: number; carbohydrates: number }[] = []; 
 
   ngOnInit(): void {
     this.setupFilterListener();
     this.displayStat(0.8, 0.5, 0.3); 
     const food = this.foodRequest("pizza");
-    this.getAllFoodData();
+    //const userId = localStorage.getItem('user_id');
+    //if (!userId) {
+    //  return;
+    //}
+    const userId = 2
+    this.getAllFoodData(userId);
     console.log("this is the things collected: ",food)
     this.calorieStats(8000,5000)
     this.calculateStats()
@@ -25,6 +30,8 @@ export class StorageComponent implements OnInit {
     const app_id = '37f64774';
     const app_key = '75127a08bd55149fb3131af961244f1d';
 
+    // this is the body i send to the external api, this should be in grams ideally but its not currently
+    // const requestBody = { query , serving_size:"serving_weight_grams"};
     const requestBody = { query };
 
     try {
@@ -43,13 +50,13 @@ export class StorageComponent implements OnInit {
       }
 
       const data = await response.json();
-
+      console.log(data)
       return data.foods.map((food: any) => ({
         name: food.name,
-        calories: food.nf_calories,
-        protein: food.nf_protein,
-        fat: food.nf_total_fat,
-        carbohydrates: food.nf_total_carbohydrate,
+        calories_per_kilo: food.nf_calories*(1000/food.serving_weight_grams),
+        protein: food.nf_protein*(1000/food.serving_weight_grams),
+        fat: food.nf_total_fat*(1000/food.serving_weight_grams),
+        carbohydrates: food.nf_total_carbohydrate*(1000/food.serving_weight_grams),
       }));
     } catch (error) {
       console.error('Error fetching food data:', error);
@@ -100,7 +107,7 @@ export class StorageComponent implements OnInit {
 
   calculateStats(): void{
     let current_storage_calories = 0;
-    const total_calories = 8000;
+    const total_calories = 2000;
     this.foodList.forEach((food) => {
       
       console.log("this is hte current total we have in storage"+ current_storage_calories, food.calories_per_kilo)
@@ -109,7 +116,7 @@ export class StorageComponent implements OnInit {
       console.log("this is hte current total we have in storage"+ current_storage_calories)
     }
     console.log("this is hte final total we have in storage"+ current_storage_calories)
-
+    this.calorieStats(8000,total_calories)
     // per 1000 calories you consume ideally you have 25 and 87.5 g of protein, to simplefy we will go with 56.25g for it
     // there are gender and goal specific differences there is currently not enough time to take in account with rightnow
     // source: https://www.liveeatlearn.com/how-many-calories-in-gram-of-protein/
@@ -206,6 +213,7 @@ export class StorageComponent implements OnInit {
     const food = {
       user_id:user_id,
       food_id:0,
+      id:0,
       name: (document.getElementById("foodName") as HTMLInputElement).value,
       amount: (document.getElementById("foodAmount") as HTMLInputElement).value,
       expiration_date: (document.getElementById("foodExpirationDate") as HTMLInputElement).value,
@@ -270,9 +278,6 @@ export class StorageComponent implements OnInit {
           case 'alphabetic':
             this.sortAlphabetically();
             break;
-          case 'in_storage':
-            //this.sortByInStorage();
-            break;
           case 'expiration_date':
             this.sortByExpirationDate();
             break;
@@ -316,13 +321,10 @@ export class StorageComponent implements OnInit {
     }
   }
 
-  getAllFoodData():void{
+  getAllFoodData(userId:number):void{
     console.log("this function is played")
-    //const userId = localStorage.getItem('user_id');
-    //if (!userId) {
-    //  return;
-    //}
-    const userId = 2
+    
+
     console.log("userid is correc")
     const foodUserConnections = "http://127.0.0.1:8000/api/user_food"
     let foodConnection: any[] = [];
@@ -349,14 +351,32 @@ export class StorageComponent implements OnInit {
              this.FoodELement(food)
              this.foodList.push(food)
              this.calculateStats()
-              console.log(`Food Item - User ID: ${food.user_id}, Expiration Date: ${food.expiration_date},everything:${food.name}`);
+              console.log(`Food Item - User ID: ${food.user_id}, Expiration Date: ${food.expiration_date},everything:${food.name},whatever ${food.id}`);
           });
         }
       )
   }
+  async delete_food(id:number):Promise<void>{
+    
+    const foodUserConnections = `http://127.0.0.1:8000/api/user_food/${id}`
+    try {
+      const response = await fetch(foodUserConnections, {
+          method: "DELETE",
+      });
 
+      if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+      }
 
-  FoodELement(food: { name: string; amount: string; expiration_date: string }): void {
+      console.log("Food deleted successfully");
+  } catch (error) {
+      console.error("Failed to delete food:", error);
+  }
+  }
+  async update_food(foodId: number, newAmount: string, newExpiration: string):Promise<void>{
+    
+  }
+  FoodELement(food: { name: string; amount: string; expiration_date: string,id:number }): void {
     console.log('AddBox function triggered');
     const container = document.getElementById('storage_container') as HTMLDivElement;
 
@@ -364,6 +384,7 @@ export class StorageComponent implements OnInit {
         // Create a container for each food element
         const storageElement = document.createElement('div');
         storageElement.id = 'storage_element';
+        storageElement.className = 'storage_element'
 
         // Create a wrapper for food details
         const foodDetails = document.createElement('div');
@@ -398,8 +419,14 @@ export class StorageComponent implements OnInit {
         editButton.addEventListener('click', () => {
             const newAmount = prompt('Enter new amount', food.amount);
             const newExpiration = prompt('Enter new expiration date', food.expiration_date);
-            if (newAmount) foodAmountLabel.textContent = newAmount;
-            if (newExpiration) foodExpirationLabel.textContent = newExpiration;
+            if (newAmount || newExpiration) {
+              // Update UI
+              if (newAmount) foodAmountLabel.textContent = newAmount;
+              if (newExpiration) foodExpirationLabel.textContent = newExpiration;
+      
+              // Send update request to API
+              this.update_food(food.id, newAmount || food.amount, newExpiration || food.expiration_date);
+          }
         });
 
         // Delete button
@@ -408,6 +435,8 @@ export class StorageComponent implements OnInit {
         deleteButton.className = 'delete-button';
         deleteButton.addEventListener('click', () => {
             container.removeChild(storageElement);
+            console.log(food.id)
+            this.delete_food(food.id)
         });
 
         // Append buttons to the button container
