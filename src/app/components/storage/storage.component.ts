@@ -373,9 +373,20 @@ export class StorageComponent implements OnInit {
       console.error("Failed to delete food:", error);
   }
   }
-  async update_food(foodId: number, newAmount: string, newExpiration: string):Promise<void>{
-    
-  }
+  async update_food(id: number, newAmount: string, newExpirationDate: string):Promise<void>{
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/user_food/${id}`, {
+          method: "PATCH", 
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+              amount: newAmount,
+              expiration_date: newExpirationDate,
+          }),
+    });
+  } catch{}
+}
   FoodELement(food: { name: string; amount: string; expiration_date: string,id:number }): void {
     console.log('AddBox function triggered');
     const container = document.getElementById('storage_container') as HTMLDivElement;
@@ -418,14 +429,14 @@ export class StorageComponent implements OnInit {
         editButton.className = 'edit-button';
         editButton.addEventListener('click', () => {
             const newAmount = prompt('Enter new amount', food.amount);
-            const newExpiration = prompt('Enter new expiration date', food.expiration_date);
-            if (newAmount || newExpiration) {
-              // Update UI
+            const newExpirationDate = prompt('Enter new expiration date', food.expiration_date);
+            //first check if anything changed then change what changed then update the database with the changes
+            
+            if (newAmount || newExpirationDate) {
               if (newAmount) foodAmountLabel.textContent = newAmount;
-              if (newExpiration) foodExpirationLabel.textContent = newExpiration;
+              if (newExpirationDate) foodExpirationLabel.textContent = newExpirationDate;
       
-              // Send update request to API
-              this.update_food(food.id, newAmount || food.amount, newExpiration || food.expiration_date);
+              this.update_food(food.id, newAmount || food.amount, newExpirationDate || food.expiration_date);
           }
         });
 
