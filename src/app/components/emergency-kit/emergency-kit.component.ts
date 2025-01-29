@@ -4,10 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SupplyAdjusterComponent } from '../supply-adjuster/supply-adjuster.component';
 
 @Component({
   selector: 'app-emergency-kit',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SupplyAdjusterComponent],
   templateUrl: './emergency-kit.component.html',
   styleUrl: './emergency-kit.component.css'
 })
@@ -17,7 +18,8 @@ export class EmergencyKitComponent implements OnInit{
 
   familyData = signal<any[]>([]);
   diapersInStock = 0;
-  padsInStock = signal<any[]>([]);
+  padsInStock = 0;
+  b12InStock = 0; 
 
   user = JSON.parse(localStorage.getItem('user') || 'null ');
   userId = this.user.id;
@@ -28,6 +30,7 @@ export class EmergencyKitComponent implements OnInit{
   //set inital values
   diapersNeeded: number = 0;
   sanitaryPadsNeeded: number = 0;
+  b12Needed = 0; 
   isWoman: boolean = false;
   isBaby: boolean = false;
   isElder: boolean = false;
@@ -121,9 +124,8 @@ export class EmergencyKitComponent implements OnInit{
       this.diapersInStock = diapers.quantity;  
 
       //fetch and set sanitary pads
-      const pads = response.find((item: {supply_name:string}) => item.supply_name === "Sanitary Pads");
-      const padsQuantity = pads.quantity; 
-      this.padsInStock.set(padsQuantity)
+      const pads = response.find((item: {supply_name:string}) => item.supply_name === "Sanitary Pads"); 
+      this.padsInStock = pads.quantity;
     } catch (error) {
       console.error('Error fetching data:', error);
     }
