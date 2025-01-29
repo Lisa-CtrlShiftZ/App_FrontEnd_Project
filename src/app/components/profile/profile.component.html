@@ -12,8 +12,10 @@
     <div class="wrapper">
         <div class="leftpane">
             <div class="content">
-                <p>profilepic</p>
-                <p>naam user</p>
+                <div class="avatar-box">
+                    <a href="/profile"><img src="images/standard_profile.jpg" alt="avatar image"></a>
+                    <p>user name</p>
+                </div>
                 <button type="button" (click)="showAccount()">accountgegevens</button>
                 <button type="button" (click)="showFamily()">familie beheren</button>
             </div>
@@ -24,24 +26,38 @@
         </div>
         <div class="rightpane">
             @if (accountVisible) {
-                <label for="userName">Naam</label>
-                <input type="text" id="userName" formControlName="userName" required>
+                <form [formGroup]="profileForm" (ngSubmit)="saveChanges()">
+                    <label for="userName">Naam</label>
+                    <input type="text" id="userName" formControlName="userName" required>
 
-                <label for="email">E-mail</label>
-                <input type="text" id="email" formControlName="email" required>
+                    <label for="email">E-mail</label>
+                    <input type="text" id="email" formControlName="email" required>
 
-                <h2>Wachtwoord</h2>
+                    <button type="submit" [disabled]="profileForm.invalid">Wijzigingen opslaan</button>
+                </form>
 
-                <label for="currentPassword">Huidig wachtwoord</label>
-                <input type="password" id="currentPassword" formControlName="currentPassword" required>
+                <form [formGroup]="passwordForm" (ngSubmit)="saveNewPassword()">
+                    <h2>Wachtwoord</h2>
 
-                <label for="repeatPassword">Huidig wachtwoord herhalen</label>
-                <input type="password" id="repeatPassword" formControlName="repeatPassword" required>
+                    <label for="currentPassword">Huidig wachtwoord</label>
+                    <input type="password" id="currentPassword" formControlName="currentPassword" required>
 
-                <label for="newPassword">Nieuw wachtwoord</label>
-                <input type="password" id="newPassword" formControlName="newPassword" required>
+                    <label for="newPassword">Nieuw wachtwoord</label>
+                    <input type="password" id="newPassword" formControlName="newPassword" required>
+                    
+                    <label for="repeatPassword">Nieuw wachtwoord herhalen</label>
+                    <input type="password" id="repeatPassword" formControlName="repeatPassword" required>
 
-                <button type="button">Wijzigingen opslaan</button>
+                    @if (currentPasswordError()) {
+                        <p style="color: red;">Huidig wachtwoord is incorrect.</p>
+                    }
+
+                    @if (passwordMatchError()) {
+                        <p style="color: red;">Wachtwoorden komen niet overeen.</p>
+                    }
+
+                    <button type="submit" [disabled]="passwordForm.invalid">Wijzigingen opslaan</button>
+                </form>
             }
             @else if (familyVisible) {
                 <h2>Familie beheren</h2>

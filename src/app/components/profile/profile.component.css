@@ -78,3 +78,7 @@ h2, p {
     margin: 10px 0px;
 }
 
+img {
+    max-width: 160px;
+    border-radius: 140px;
+}
