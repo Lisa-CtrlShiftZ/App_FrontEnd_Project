@@ -40,17 +40,10 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   
-    { path: 'client/food_storage', component:StorageComponent}
+  { path: 'client/food_storage', component:StorageComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'emergency-kit', component: EmergencyKitComponent}
 
-
-import { StorageComponent } from './components/storage/storage.component';
-
-export const routes: Routes = [
-    { path: 'register', component: RegisterComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'client/food_storage', component:StorageComponent}
 ];
 
 @NgModule({
