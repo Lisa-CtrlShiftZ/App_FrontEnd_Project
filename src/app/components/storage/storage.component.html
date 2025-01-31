@@ -1,12 +1,12 @@
 
     <link rel="stylesheet" href="storage.component.css">
 
-    <div>
+    <div class="border">
         <h1>Uw huidige voedselvoorraad:</h1>
     </div>
-    <div>
+    <div id="">
         <h2 class="centered">Overzicht</h2>
-        <div class="flexbox">
+        <div class="flexbox border">
             <div class="centered supply_stats total_calories">
                 <p>in voorraad:</p>
                 <h1 id="total_calories"></h1>
@@ -73,17 +73,17 @@
                 </div>
                 <div class="child supply_stats">
                     <h2 class="centered">Tip</h2>
-                    <p>streef naar een 60/20/20 verhouding</p>
-                    <p>60% koolydraten</p>
-                    <p>20% protienen</p>
-                    <p>20% vetten</p>
+                    <p class="centered">streef naar een 40/20/10 verhouding, de rest zou vitamine rijk voedsel ideaal zijn.</p>
+                    <p class="centered">+-40% koolydraten</p>
+                    <p class="centered">+-20% protienen</p>
+                    <p class="centered">+-10% vetten</p>
                 </div>
             </div>
         </div>
     </div>
     <div>
         <h2 class="centered">Voorraad</h2>
-        <div class="flexbox">
+        <div class="flexbox border">
             <p>sorteer op: </p>
             <select id="filters">
                 <option value="expiration_date">Verval datum</option>
@@ -92,8 +92,8 @@
 
         </div>
         
-        <button id="openWindow" (click)="openSelectionWindow()">add food</button>
-        <div id="displayWindow" class="hidden">
+        <button class="border" id="openWindow" (click)="openSelectionWindow()">add food</button>
+        <div id="displayWindow " class="hidden ">
             <div class="window-content">
                 <span id="closeWindow" class="close-btn">&times;</span>
                 <p>type het voedsel dat u wilt toevoegen</p>
@@ -109,7 +109,7 @@
                 <button (click)="addFood()" id="addFood">add</button>
             </div>
         </div>
-        <div id="storage_container" class="storage_box storage_container">
+        <div id="storage_container" class="storage_box storage_container border">
             
 
         </div>

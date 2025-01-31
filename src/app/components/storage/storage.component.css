@@ -240,3 +240,6 @@ select::-webkit-dropdown-button {
     padding: 10px;
     outline: none;
 }
+.border{
+    margin: 20px 150px 20px 150px;
+}
