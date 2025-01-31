@@ -44,3 +44,4 @@ vendor
 Thumbs.db
 
 .env
+/vendor

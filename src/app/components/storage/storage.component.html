@@ -1,0 +1,117 @@
+
+    <link rel="stylesheet" href="storage.component.css">
+
+    <div>
+        <h1>Uw huidige voedselvoorraad:</h1>
+    </div>
+    <div>
+        <h2 class="centered">Overzicht</h2>
+        <div class="flexbox">
+            <div class="centered supply_stats total_calories">
+                <p>in voorraad:</p>
+                <h1 id="total_calories"></h1>
+                <progress id="progress_bar_calories" value="100" max="100"></progress>
+                <p>voeg nog</p>
+                <h1 id="extra_calories"></h1>
+                <p>toe om je doel te halen</p>
+            </div>
+            <div class="container">
+                <div class="child supply_stats">
+                    <div class="amount_of_carbs supply_stats centered">
+                        <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+                            <circle id="display_amount_of_carb"
+                                r="40" 
+                                cx="50" 
+                                cy="50" 
+                                fill="none" 
+                                stroke="blue" 
+                                stroke-width="6" 
+                                stroke-dasharray="251.2" 
+                                stroke-dashoffset="62.8" 
+                                transform="rotate(135, 50, 50)" />
+                        </svg>
+                        <p id="carb_percentage" class="centered"></p>
+                        <p class="centered">koolhydraten</p>
+                    </div>
+                </div>
+                
+                <div class="child supply_stats">
+                    <div class="amount_of_fat supply_stats centered">
+                        <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+                            <circle id="display_amount_of_fat"
+                                r="40" 
+                                cx="50" 
+                                cy="50" 
+                                fill="none" 
+                                stroke="blue" 
+                                stroke-width="6" 
+                                stroke-dasharray="251.2" 
+                                stroke-dashoffset="62.8" 
+                                transform="rotate(135, 50, 50)" />
+                        </svg>
+                        <p id="fat_percentage" class="centered"></p>
+                        <p class="centered">vetten</p>
+                    </div>
+                </div>
+                <div class="child supply_stats">
+                    <div class="amount_of_protein supply_stats centered">
+                        <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+                            <circle id="display_amount_of_protein"
+                                r="40" 
+                                cx="50" 
+                                cy="50" 
+                                fill="none" 
+                                stroke="blue" 
+                                stroke-width="6" 
+                                stroke-dasharray="251.2" 
+                                stroke-dashoffset="62.8" 
+                                transform="rotate(135, 50, 50)" />
+                        </svg>
+                        <p id="protein_percentage" class="centered"></p>
+                        <p class="centered">proteine</p>
+                    </div>
+                </div>
+                <div class="child supply_stats">
+                    <h2 class="centered">Tip</h2>
+                    <p>streef naar een 60/20/20 verhouding</p>
+                    <p>60% koolydraten</p>
+                    <p>20% protienen</p>
+                    <p>20% vetten</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2 class="centered">Voorraad</h2>
+        <div class="flexbox">
+            <p>sorteer op:</p>
+            <select id="filters">
+                <option value="expiration_date">Verval datum</option>
+                <option value="in_storage">in bezit van</option>
+                <option value="alphabetic">Alfabetisch</option>
+            </select>
+
+        </div>
+        
+        <button id="openWindow" (click)="openSelectionWindow()">add food</button>
+        <div id="displayWindow" class="hidden">
+            <div class="window-content">
+                <span id="closeWindow" class="close-btn">&times;</span>
+                <p>selecteer het voedsel u wilt toevoegen</p>
+                <input type="search" id="foodName">
+                <div class="flexbox centered">
+                    <p>kg:</p>
+                    <input type="number" id="foodAmount">
+                </div>
+                <div class="flexbox">
+                    <p>houdbaarheidsdatum:</p>
+                    <input type="date" id="foodExpirationDate">
+                </div>
+                <button (click)="addFood()">add</button>
+            </div>
+        </div>
+        <div id="storage_container" class="storage_box storage_container">
+            
+
+        </div>
+    </div>
