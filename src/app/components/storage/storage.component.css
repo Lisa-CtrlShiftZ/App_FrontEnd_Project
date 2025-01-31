@@ -74,7 +74,8 @@ body{
     background: white;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    width: 30%; 
+    height: 70%;
     padding: 20px;
     z-index: 1000;
 }
@@ -180,4 +181,62 @@ button.delete-button:hover {
 }
 .supply_stats{
     background-color: #6b857f;
+}
+#filters{
+    background-color: #dd5f40;
+    width: 15%;
+    font-size: 16px;
+    padding: 6px;
+    margin-left:30px;
+}
+#filters:hover {
+    border-color:#08342a;
+}
+select::-webkit-dropdown-button {
+    background: none;
+    border: none;
+}
+
+#openWindow{    
+    width: 30%;
+    padding: 20px;
+    margin-top: 20px;
+    border: none;
+    font-size: 20px;
+}
+
+#addFood{
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    border: none;
+    font-size: 20px;
+    
+    border: 1px solid #ccc;
+}
+
+.expirationDateDiv{
+    margin-top: 90px;
+    justify-content: center;
+}
+
+.weightDiv{
+    margin-top: 90px;
+    justify-content: center;
+}
+
+#foodName{
+    border: 1px solid #ccc;
+    padding: 12px;
+    font-size: 22px;
+}
+#foodAmount{
+    width: 100%;
+    padding-right: 25%; /* Pushes text 75% to the right */
+    text-align: right; /* Aligns text to the right */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    outline: none;
 }

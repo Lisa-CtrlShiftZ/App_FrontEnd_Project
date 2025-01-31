@@ -24,7 +24,7 @@
                                 cx="50" 
                                 cy="50" 
                                 fill="none" 
-                                stroke="blue" 
+                                stroke="#ffffff" 
                                 stroke-width="6" 
                                 stroke-dasharray="251.2" 
                                 stroke-dashoffset="62.8" 
@@ -43,7 +43,7 @@
                                 cx="50" 
                                 cy="50" 
                                 fill="none" 
-                                stroke="blue" 
+                                stroke="#ffffff" 
                                 stroke-width="6" 
                                 stroke-dasharray="251.2" 
                                 stroke-dashoffset="62.8" 
@@ -61,7 +61,7 @@
                                 cx="50" 
                                 cy="50" 
                                 fill="none" 
-                                stroke="blue" 
+                                stroke="#ffffff" 
                                 stroke-width="6" 
                                 stroke-dasharray="251.2" 
                                 stroke-dashoffset="62.8" 
@@ -84,10 +84,9 @@
     <div>
         <h2 class="centered">Voorraad</h2>
         <div class="flexbox">
-            <p>sorteer op:</p>
+            <p>sorteer op: </p>
             <select id="filters">
                 <option value="expiration_date">Verval datum</option>
-                <option value="in_storage">in bezit van</option>
                 <option value="alphabetic">Alfabetisch</option>
             </select>
 
@@ -97,17 +96,17 @@
         <div id="displayWindow" class="hidden">
             <div class="window-content">
                 <span id="closeWindow" class="close-btn">&times;</span>
-                <p>selecteer het voedsel u wilt toevoegen</p>
+                <p>type het voedsel dat u wilt toevoegen</p>
                 <input type="search" id="foodName">
-                <div class="flexbox centered">
+                <div class="flexbox centered weightDiv">
                     <p>kg:</p>
                     <input type="number" id="foodAmount">
                 </div>
-                <div class="flexbox">
+                <div class="flexbox expirationDateDiv">
                     <p>houdbaarheidsdatum:</p>
                     <input type="date" id="foodExpirationDate">
                 </div>
-                <button (click)="addFood()">add</button>
+                <button (click)="addFood()" id="addFood">add</button>
             </div>
         </div>
         <div id="storage_container" class="storage_box storage_container">
