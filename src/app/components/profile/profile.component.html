@@ -20,7 +20,7 @@
                 <button type="button" (click)="showFamily()">familie beheren</button>
             </div>
             <div class="logout">
-                <button type="button">Uitloggen</button>
+                <button type="button" (click) = "logout()">Uitloggen</button>
             </div>
 
         </div>
@@ -61,6 +61,56 @@
             }
             @else if (familyVisible) {
                 <h2>Familie beheren</h2>
+
+                <div class="family-card-container">
+                    @if (familyData().length > 0) {
+                      @for (person of familyData(); track person.id) {
+                        <!-- Card for each family member -->
+                        <button type="button" class="family-card" (click)="editPerson(person)">
+                          <p>{{ person.name }} {{ person.last_name }}</p>
+                          <p>Dieet: {{ person.diet }}</p>
+                          <p>Geboortedatum: {{ person.date_of_birth }}</p>
+                        </button>
+                      }
+                    }
+                  </div>
+
+                <div>
+                <form #personen="ngForm">
+                    <label for="voornaam">Voornaam</label>
+                    <input type="text" id="voornaam" [(ngModel)]="formData.name" name="voornaam" required />
+    
+                    <label for="familienaam">Familienaam</label>
+                    <input type="text" id="familienaam" [(ngModel)]="formData.last_name" name="familienaam" required />
+    
+                    <label for="gender">Geslacht</label>
+                    <select id="gender" [(ngModel)]="formData.gender" name="dieet">
+                        <option value="male">Man</option>
+                        <option value="female">Vrouw</option>
+                    </select>
+    
+                    <label for="geboortedatum">Geboortedatum</label>
+                    <input type="date" id="geboortedatum" [(ngModel)]="formData.date_of_birth" name="geboortedatum" required />
+    
+                    <label for="hoogte">Hoogte</label>
+                    <input type="number" id="hoogte" [(ngModel)]="formData.height" name="hoogte" required />
+    
+                    <label for="gewicht">Gewicht</label>
+                    <input type="number" id="gewicht" [(ngModel)]="formData.weight" name="gewicht" required />
+                    <p><em>gewicht gebruiken we om je voedingsbehoefte te bepalen.</em> </p>
+    
+                    <label for="dieet">Dieet</label>
+                    <select id="dieet" [(ngModel)]="formData.diet" name="dieet">
+                        <option value="geen">Geen specifiek dieet</option>
+                        <option value="vegetarisch">Vegetarisch</option>
+                        <option value="vegan">Vegan</option>
+                    </select>
+    
+                    <button type="button" (click)="addPerson()" [disabled]="!personen.valid">Voeg toe</button>
+                    <button type="button" (click)="deleteMember()" >Verwijder persoon</button>
+                    <button type="button" (click)="sendAllMembers()">Bevestig</button>
+                </form>
+            </div>
             }
 
         </div>
