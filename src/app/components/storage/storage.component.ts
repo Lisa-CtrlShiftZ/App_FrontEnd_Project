@@ -28,7 +28,6 @@ export class StorageComponent implements OnInit {
     
     console.log(userId)
     this.getAllFoodData(Number(userId));
-    this.calorieStats(userCalories,5000)
     this.calculateStats()
   }
 
@@ -112,14 +111,14 @@ export class StorageComponent implements OnInit {
 
   calculateStats(): void{
     let current_storage_calories = 0;
-    const total_calories = 2000;
     this.foodList.forEach((food) => {
       
     if (food.calories_per_kilo) {
-      current_storage_calories += food.calories_per_kilo; // Accumulate calories
+      current_storage_calories += (food.calories_per_kilo*Number(food.amount)); // Accumulate calories
     }
     const userData = localStorage.getItem('user');
     let userCalories = 0;
+    console.log(userData)
     if (userData) {
       try {
         const user = JSON.parse(userData); 
@@ -128,25 +127,26 @@ export class StorageComponent implements OnInit {
         console.log("No user found in localStorage");
       }
     }
-    this.calorieStats(userCalories,total_calories)
+    console.log(current_storage_calories,userCalories)
+    this.calorieStats(userCalories,current_storage_calories)
     // per 1000 calories you consume ideally you have 25 and 87.5 g of protein, to simplefy we will go with 56.25g for it
     // there are gender and goal specific differences there is currently not enough time to take in account with rightnow
     // source: https://www.liveeatlearn.com/how-many-calories-in-gram-of-protein/
     // second source: https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/
-    const total_protein_required = total_calories * ( 56.25 / 1000 )
+    const total_protein_required = userCalories * ( 56.25 / 1000 )
 
     // per 1000 calories you consume ideally you have 150g of protein
     // once again there are gender and goal specific differences there is currently not enough time to take in account with rightnow
     // source: https://www.livestrong.com/article/292776-one-gram-of-carbohydrates-has-how-many-calories/
     // second source: https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/
-    const total_carb_required = total_calories * ( 150 / 1000 )
+    const total_carb_required = userCalories * ( 150 / 1000 )
 
     // per 1000 calories you consume ideally you have 20 and 35 g of protein, to simplefy we will go with 27.5g for it
     // once again there are gender and goal specific differences there is currently not enough time to take in account with rightnow
     // source: https://www.verywellhealth.com/how-many-grams-of-fat-per-day-8421874
     // second source: https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/
     // third source: https://www.who.int/news-room/fact-sheets/detail/healthy-diet
-    const total_fat_required = total_calories * ( 27.5 / 1000 )
+    const total_fat_required = userCalories * ( 27.5 / 1000 )
     const current_protein = this.foodList.reduce((total, item) => {
       return total + item.protein * parseFloat(item.amount);
     }, 0);
@@ -156,6 +156,7 @@ export class StorageComponent implements OnInit {
     const current_fat = this.foodList.reduce((total, item) => {
       return total + item.protein * parseFloat(item.amount);
     }, 0);
+    console.log(current_protein,total_protein_required, this.foodList)
 
     this.displayStat( current_protein /total_protein_required, current_carb/total_carb_required, current_fat/total_fat_required)
   });
@@ -214,8 +215,16 @@ export class StorageComponent implements OnInit {
 
     const {  carbohydrates, fat, protein,calories_per_kilo } = foodData[0];
 
-    //hardcoded test value
-    const user_id = 2
+    const userData = localStorage.getItem('user');
+    let user_id = 0;
+    if (userData) {
+      try {
+        const user = JSON.parse(userData); 
+        user_id = user.id; 
+      } catch (error) {
+        console.log("No user found in localStorage");
+      }
+    }
 
     const food = {
       user_id:user_id,
@@ -252,7 +261,9 @@ export class StorageComponent implements OnInit {
 
   const data = await response.json();
   food.food_id = data.id
-  
+  console.log(JSON.stringify(data),JSON.stringify(food))
+
+
   const connectionUserFood = await fetch(apiUser_foodUrl, {
     method: "POST",
     headers: {
@@ -260,17 +271,19 @@ export class StorageComponent implements OnInit {
     },
     body: JSON.stringify(food)
   });
+  this.calculateStats()
   if (!response.ok) {
   const error = await response.text(); // Capture the server's error message
   console.error(`Server error: ${response.status} - ${error}`);
   return undefined;
-}
+  }
     const food_id = await response.json();
     return food_id;
     }catch{
       return undefined;
     }
   }
+
   setupFilterListener(): void {
     const filterDropdown = document.getElementById('filters') as HTMLSelectElement;
 
@@ -311,10 +324,6 @@ export class StorageComponent implements OnInit {
     }
   }
 
-  //sortByInStorage() {
-  //  this.foodList.sort((a, b) => Number(b.owned) - Number(a.owned));
-  //  this.renderItems();
-  //}
 
   sortByExpirationDate() {
     this.foodList.sort((a, b) => new Date(a.expiration_date).getTime() - new Date(b.expiration_date).getTime());
@@ -339,6 +348,7 @@ export class StorageComponent implements OnInit {
         .then((data) => {
             foodConnection = data.filter((item: any) => item.user_id === userId).map((item: any) => {
               // Renaming here to name to name so it can be used everywhere as just name
+              console.log(item)
               return {
                   ...item,
                   name: item.food_name, 
