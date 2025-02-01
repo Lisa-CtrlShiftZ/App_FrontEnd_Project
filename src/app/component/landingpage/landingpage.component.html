@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="landingpage.component.css">
-</head>
+
 <body>
     <div class="flexbox intro">
         <div class="intro-style">
             <h1>Voorbereid zijn op een ramp</h1>
             <p>voor u en uw naasten</p>
+            <a href="/register">
                 <button routerLink="/login" style="padding: 15px;">maak een account</button>
-                <router-outlet></router-outlet>
+            </a> 
         </div>
-        <img src="./images/xingchen-yan-RNlupvBsSXg-unsplash.jpg" style="margin-left: auto; width: 500px; height:800px; ">
+        <img src="./images/mountain.jpg" style="margin-left: auto; width: 500px; height:800px; ">
     </div>
     <div class="how-to-prepare">
         <h2 class="centered" style="padding-bottom: 60px;">hoe wij u helpen voorbereiden</h2>
@@ -61,16 +55,37 @@
         <h2>Survivalhandleiding</h2>
         <p>In deze app vindt u verschillende survival tips en handleidingen, <br> waaronder de volgende:</p>
         <div class="flexbox centered" style="margin-top: 80px;">
-            <img class="padding-survival" src="images/stacks-of-sandbags-outside-a-front-door-of-home-for-flooding.webp" style="width: 250px;">
-            <img class="padding-survival" src="placeholder_circle.png" style="width: 200px;">
-            <img class="padding-survival" src="placeholder_circle.png" style="width: 200px;">
+            <div class="inner-guides-container">
+                <a href="/register">
+                <div class="guide-item">
+                    <img src="images/navigating.jpg" alt="Woman holding a map and compass">
+                    <h4>Overleven 101</h4>
+                    <p>Tips om te overleven</p>
+                </div>
+            </a>
+                <a href="/register">
+                <div class="guide-item">
+                    <img src="images/foodjars.jpg" alt="Different foods in jars">
+                    <h4>Overleven 101</h4>
+                    <p>Tips om te overleven</p>
+                </div>
+            </a>
+                <a href="/register">
+                <div class="guide-item">
+                    <img src="images/moss.jpg" alt="Nature scene with a river flowing">
+                    <h4>Overleven 101</h4>
+                    <p>Tips om te overleven</p>
+                </div>
+            </a>
+            </div>
         </div>
     </div>
     <div class="register-bottom">
         <div class="centered">
             <h2>Begin vandaag <br> met voorbereiden</h2>
+            <a href="/register">
                 <button routerLink="/login" style="margin-top: 40px">Meld u nu aan</button>
-                <router-outlet></router-outlet>
+            </a>
         </div>
     </div>
     <footer>
@@ -79,4 +94,3 @@
         <p>gemaakt door: Bernard, Lisa, Killian</p>
     </footer>
 </body>
-</html>
