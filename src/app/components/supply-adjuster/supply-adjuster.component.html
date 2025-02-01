@@ -10,8 +10,8 @@
       </div>
     </div>
     <div class="adjust-amount">
-      <button class="min-plus" (click)="increase()">+</button>
-      <input type="text" [value]="quantity">
-      <button class="min-plus" (click)="decrease()">-</button>
+      <button class="min-plus" (click)="increase()" (change)="updateStock(StockItem.id, $event.target.value)">+</button>
+      <input type="text" [value]="quantity" (change)="updateStock(StockItem.id, $event.target.value)">
+      <button class="min-plus" (click)="decrease()" (change)="updateStock(StockItem.id, $event.target.value)">-</button>
     </div>
 </div>

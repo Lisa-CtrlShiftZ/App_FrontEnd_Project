@@ -1,13 +1,21 @@
 import { Component, NgModule, OnInit, signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SupplyAdjusterComponent } from '../supply-adjuster/supply-adjuster.component';
 
+interface StockItem {
+  id: number;
+  name: string;
+  quantity: number;
+}
+
+
 @Component({
   selector: 'app-emergency-kit',
+  standalone: true, 
   imports: [FormsModule, CommonModule, SupplyAdjusterComponent],
   templateUrl: './emergency-kit.component.html',
   styleUrl: './emergency-kit.component.css'
@@ -15,7 +23,7 @@ import { SupplyAdjusterComponent } from '../supply-adjuster/supply-adjuster.comp
 export class EmergencyKitComponent implements OnInit{
   httpClient = inject(HttpClient);
   url = 'http://127.0.0.1:8000/api';
-
+  
   familyData = signal<any[]>([]);
   diapersInStock = 0;
   padsInStock = 0;
@@ -38,9 +46,10 @@ export class EmergencyKitComponent implements OnInit{
 
  //Will be fetched later. Prep time in weeks
   prepareTime = 8; 
+  stock: any;
   
-  constructor(private userService: UserService) {}
-
+  constructor(private userService: UserService, private http: HttpClient ) {};
+  
   async ngOnInit(): Promise<void> {
     await this.getUserFamilyData(); 
     await this.getSuppliesInStock(); 
@@ -131,6 +140,20 @@ export class EmergencyKitComponent implements OnInit{
     }
   }
 
+  updateStock(itemId: number, newAmount: number) {
+    try {
+      const response = this.http.put<StockItem>(
+        `${this.url}/user/${this.userId}/supplies`,
+        { itemId, amount: newAmount }
+      );
+  
+      console.log('Updated stock:', response);
+      this.stock.set(response); // Update the Signal with the new data
+    } catch (error) {
+      console.error('Error updating stock:', error);
+    }
+  }
+  
   firstTimeVisitor(){
     if( !window.localStorage['isReturningVisitor']) {
       alert('first time you here!'); 
