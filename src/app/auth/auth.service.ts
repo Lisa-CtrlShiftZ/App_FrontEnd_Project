@@ -4,6 +4,7 @@ import { inject } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { SignupData } from '../models/signup-data';
 import { LoginData } from '../models/login-data';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,13 @@ export class AuthService {
   //Posts register data to to /user API endpoint.  
   //SignupData is an interface defined in models/signup-data.ts
   signup(data: SignupData) {
-    return this.httpClient.post(`${this.url}/user`, data);
+    return this.httpClient.post(`${this.url}/user`, data)
+    .pipe(
+      switchMap(() => this.login({
+        email: data.email,
+        password: data.password
+      }))
+    );
   }
 
   login(data: LoginData) {

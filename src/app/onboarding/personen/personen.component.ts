@@ -22,6 +22,7 @@ export class PersonenComponent {
     weight: 0,
     diet: '',
     date_of_birth: '' ,
+    user_id: '',
   }
 
   familyMembers = signal<any[]>([]);
@@ -38,6 +39,7 @@ export class PersonenComponent {
       weight: 0,
       diet: '',
       date_of_birth: '' ,
+      user_id: '',
     };
     //Load saved data from sessionStorage.
     const savedData = sessionStorage.getItem('formData');
@@ -85,6 +87,15 @@ export class PersonenComponent {
       return;
     }
 
+    // Get the userId from localStorage
+    const userId = localStorage.getItem("userId")
+    if (!userId) {
+      alert('User ID not found. Please log in again.');
+      return;
+    }
+
+    this.formData.user_id = userId;
+
     // Retrieve the current family members array from the signal
     const familyArray = this.familyMembers();
 
@@ -107,6 +118,7 @@ export class PersonenComponent {
       weight: 0,
       diet: '',
       date_of_birth: '' ,
+      user_id: '',
     };
   }
 
@@ -183,6 +195,7 @@ export class PersonenComponent {
       weight: 0,
       diet: '',
       date_of_birth: '' ,
+      user_id: '',
     };
   }
 
