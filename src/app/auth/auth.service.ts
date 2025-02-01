@@ -4,7 +4,6 @@ import { inject } from '@angular/core';
 import { switchMap, tap } from 'rxjs/operators';
 import { SignupData } from '../models/signup-data';
 import { LoginData } from '../models/login-data';
-import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
