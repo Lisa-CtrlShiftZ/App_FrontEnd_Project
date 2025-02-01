@@ -1,0 +1,73 @@
+.main {
+    display: flex;
+}
+
+.filler {
+    background-color: #08342A;
+    width: 30%;
+    min-height: 100vh;
+}
+
+.register {
+    padding-top: 64px;
+    margin: 0 auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+input {
+    border: none;
+    min-height: 50px;
+    min-width: 25vw;
+    border-radius: 5px;
+    background-color: #F4F4F4;
+}
+
+button {
+    border-radius: 5px;
+    min-height: 50px;
+}
+
+h1 {
+    font-weight: 600;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+.error-text {
+    color: red;
+    font-size: 0.875rem; /* Slightly smaller than standard text */
+    margin-top: 0.25rem;
+}
+
+.switch-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* quote */
+h3 {
+    text-align: center;
+    color: aliceblue;
+    font-weight: 300;
+    font-style: italic;
+    padding-top: 64px;
+    padding-left: 20px;
+    padding-right: 40px;
+    font-size: 24px;
+}
+
+/* quote credit */
+h4 {
+    text-align: center;
+    color: aliceblue;
+}

@@ -1,0 +1,27 @@
+<div class="main">
+    <div class="filler">
+        <h3>Fijn je weer te zien</h3>
+    </div>
+
+    <div class="register">
+        <h1>Log in</h1>
+        <div class="switch-page">
+            <p>Nog geen account? </p>
+            <span><a routerLink="/register">Registreer</a></span>
+        </div>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" formControlName="email" required>
+
+            <label for="password">Wachtwoord:</label>
+            <input type="password" id="password" formControlName="password" required>
+
+            <button type="submit">Login</button>
+            <div class="error-text" *ngIf="loginError">
+                <p>{{ loginError }} <br> Wil je een <span><a routerLink="/register">Account aanmaken?</a></span></p>
+            </div>
+        </form>
+    </div>
+
+</div>

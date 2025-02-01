@@ -1,0 +1,58 @@
+<div class="main">
+    <div class="filler">
+        <h3>"Het zijn niet de sterkste van een soort die overleven en ook niet de intelligentste. Het zijn degene die
+            zich het best op veranderingen aanpassen."</h3>
+        <h4>- Charles Darwin</h4>
+    </div>
+
+    <div class="register">
+        <div class="text-box">
+            <h1>Maak een account aan</h1>
+            <div class="switch-page">
+                <p>Al een account?</p>
+                <a href="/login">Login</a>
+            </div>
+        </div>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+            <label for="name">Naam:</label>
+            <input type="text" id="name" formControlName="name" required>
+            <div class="error-text"
+                *ngIf="registerForm.get('name')?.errors?.['required'] && registerForm.get('name')?.touched">
+                <p>Hoe mogen we je noemen?</p>
+            </div>
+
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" formControlName="email" required>
+            <div class="error-text"
+                *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
+                <p>Verplicht veld</p>
+            </div>
+            <div class="error-text"
+                *ngIf="registerForm.get('email')?.errors?.['pattern'] && registerForm.get('email')?.touched">
+                <p>Voer een geldig e-mailadres in</p>
+            </div>
+
+            <label for="password">Wachtwoord:</label>
+            <input type="password" id="password" formControlName="password" required>
+            <div class="error-text"
+                *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
+                <p>Verplicht veld</p>
+            </div>
+            <div class="error-text"
+                *ngIf="registerForm.get('password')?.errors?.['pattern'] && registerForm.get('password')?.dirty">
+                <p>Wachtwoord moet minstens 8 karakters zijn, <br> en een lage letter, hoofdletter en cijfer bevatten
+                </p>
+            </div>
+
+            <label for="confirmPassword">Bevestig wachtwoord:</label>
+            <input type="password" id="confirmPassword" formControlName="confirmPassword" required>
+            <div class="error-text" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+                <p>Wachtwoorden kom niet overeen</p>
+            </div>
+
+            <button type="submit">Registreer</button>
+        </form>
+    </div>
+
+</div>

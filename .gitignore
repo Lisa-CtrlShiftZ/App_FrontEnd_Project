@@ -36,8 +36,12 @@ vendor
 /libpeerconnection.log
 testem.log
 /typings
+vendor
+.env
 
 
 # System files
 .DS_Store
 Thumbs.db
+
+.env
