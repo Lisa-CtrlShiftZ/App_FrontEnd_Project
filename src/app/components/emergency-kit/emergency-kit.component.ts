@@ -132,9 +132,7 @@ export class EmergencyKitComponent implements OnInit{
 
   firstTimeVisitor(){
     if( !window.localStorage['isReturningVisitor']) {
-      alert('first time you here!'); 
-      
-      // window.localStorage['isReturningVisitor'] = true;
+      window.localStorage['isReturningVisitor'] = true;
   }
   }
 

@@ -1,0 +1,100 @@
+:root {
+    --green: #08342a;
+    --red: #dd5f40;
+    --white:  #ffffff;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+}
+
+h1 {
+    font-family: Poppins;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.rightpane {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    margin-left: 80px;
+    padding: 12px;
+    /* padding-left: 40px; */
+    flex: 1 1 auto;
+}
+
+.leftpane {
+    margin: 0;
+    display: flex;
+    background-color: #08342a;
+    padding: 12px;
+    color: white;
+    width: 30%;
+    min-height: 100vh;
+    padding-top: 40px;
+    flex-direction: column;
+    align-items: center;
+}  
+
+h3 {
+    text-align: center;
+    font-weight: 300;
+    font-style: italic;
+    padding-top: 64px;
+    padding-left: 20px;
+    padding-right: 40px;
+    font-size: 24px;
+}
+
+input {
+    background-color: rgb(238, 233, 233);
+    width: 240px;
+    height: 30px;
+    font-size: 24px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    border: none;
+    font-size: 20px;
+}
+
+h2, p {
+    margin: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+}
+
+img {
+    max-width: 160px;
+    border-radius: 140px;
+}
+
+.family-card-container {
+    display: flex;
+    flex-wrap: wrap;        /* Allows the cards to wrap onto the next line */
+    gap: 15px; 
+}
+
+.family-card{
+    margin: 10px;           /* Adds space between each card */
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    width: 180px;
+
+}
