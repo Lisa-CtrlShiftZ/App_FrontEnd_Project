@@ -8,10 +8,14 @@ import { DuurComponent } from './onboarding/duur/duur.component';
 import { BedanktComponent } from './onboarding/bedankt/bedankt.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmergencyKitComponent } from './components/emergency-kit/emergency-kit.component';
 
 export const routes: Routes = [
+    { path: 'register', component: RegisterComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'profile', component: ProfileComponent},
     {
         path: 'onboarding/gegevens',
         component: OnboardingComponent,
