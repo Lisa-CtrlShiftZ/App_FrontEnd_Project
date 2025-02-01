@@ -12,7 +12,6 @@ interface StockItem {
   quantity: number;
 }
 
-
 @Component({
   selector: 'app-emergency-kit',
   standalone: true, 
@@ -153,12 +152,11 @@ export class EmergencyKitComponent implements OnInit{
       console.error('Error updating stock:', error);
     }
   }
-  
+ 
   firstTimeVisitor(){
     if( !window.localStorage['isReturningVisitor']) {
-      alert('first time you here!'); 
-      
-      // window.localStorage['isReturningVisitor'] = true;
+    
+      window.localStorage['isReturningVisitor'] = true;
   }
   }
 

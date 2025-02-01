@@ -107,12 +107,14 @@
             <app-item-adjuster
               [itemName]="diapersNeeded + ' pampers'"
               [infoText]="'U kunt herbruikbare luiers overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.'"
-              [(quantity)]="diapersInStock">
+              [(quantity)]="diapersInStock"
+              >
             </app-item-adjuster>
         </div>
         <div *ngIf="isVegan">
             <app-item-adjuster
               [itemName]="b12Needed + 'x Vitamine B12'"
+              [infoText]=" ''"
               [(quantity)]="b12InStock"
               >
             </app-item-adjuster>

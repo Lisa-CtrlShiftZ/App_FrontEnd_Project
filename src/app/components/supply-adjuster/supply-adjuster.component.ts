@@ -39,19 +39,5 @@ export class SupplyAdjusterComponent {
       this.quantityChange.emit(this.quantity);
     }
   }
-
-  updateStock(itemId: number, newAmount: number) {
-    try {
-      const response = this.http.put<StockItem>(
-        `${this.url}/user/${this.userId}/supplies`,
-        { itemId, amount: newAmount }
-      );
-
-      console.log('Updated stock:', response);
-      this.stock.set(response); // Update the Signal with the new data
-    } catch (error) {
-      console.error('Error updating stock:', error);
-    }
-  }
-}
+ }
 
