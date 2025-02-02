@@ -37,7 +37,7 @@ export class EmergencyKitComponent implements OnInit{
   //set inital values
   diapersNeeded: number = 0;
   sanitaryPadsNeeded: number = 0;
-  b12Needed = 0; 
+  b12Needed: number = 0; 
   isWoman: boolean = false;
   isBaby: boolean = false;
   isVegan: boolean = false; 
@@ -55,6 +55,7 @@ export class EmergencyKitComponent implements OnInit{
     // calculate all items needed 
     this.diapersNeeded = this.calculateDiapers(this.prepareTime);
     this.sanitaryPadsNeeded = this.calculateSanitaryPads(this.prepareTime);
+    this.b12Needed - this.calculateB12(this.prepareTime);
     this.firstTimeVisitor(); 
     this.isMessageVisible;
   }
@@ -116,6 +117,11 @@ export class EmergencyKitComponent implements OnInit{
     let sanitaryPadsNeeded = prepTimeInMonths * 25;
     // Return amount rounded down 
     return Math.round(sanitaryPadsNeeded); 
+  }
+
+  calculateB12(prepareTime: number){
+    let b12Needed = prepareTime; 
+    return b12Needed;
   }
 
   async getSuppliesInStock(){
