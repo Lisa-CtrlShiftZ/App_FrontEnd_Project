@@ -96,8 +96,6 @@ export class EmergencyKitComponent implements OnInit{
     const familyArray = this.familyData(); // Access the array from the signal
     familyArray.forEach(member => {
       const age = this.calculateAge(member.date_of_birth);
-      console.log(`${member.name} is ${age} years old`);
-
         if(age > 13 && member.gender === 'Female'){
           this.isWoman = true; 
         }
