@@ -86,57 +86,35 @@
             <label for="baby">Baby</label>
         </div>
         <div class="personalized-item">
-            <input type="checkbox" id="elder" name="elder">
-            <label for="elder">Oudere</label>
-        </div>
-        <div class="personalized-item">
             <input type="checkbox" id="vegan" name="vegan" [(ngModel)]="isVegan">
             <label for="vegan">Vegan</label>
         </div>
     </div>
     <form>
+
         <div *ngIf="isWoman">
-            <div class="check-item-input">
-                <div>
-                    <h3>{{sanitaryPadsNeeded}} Maandverband / tampons</h3>
-                    <p>Op voorraad:</p>
-                </div>
-                <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
-                    <div class="info-bubble">
-                        <p>U kunt herbruikbaar maandverband of een menstruatiecup overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.</p>
-                    </div>
-                </div>
-                <div class="adjust-amount">
-                    <button class="min-plus">+</button><input type="text" [value]="padsInStock()"><button class="min-plus">-</button>
-                </div>
-            </div>
-        </div>
+            <app-item-adjuster
+              [itemName]="sanitaryPadsNeeded + ' Maandverband / tampons'"
+              [infoText]="'U kunt herbruikbaar maandverband of een menstruatiecup overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.'"
+              [(quantity)]="padsInStock">
+            </app-item-adjuster>
+          </div>
         <div *ngIf="isBaby">
-            <div class="check-item-input">
-                <div>
-                    <h3>{{diapersNeeded}} Pampers</h3>
-                    <p>Op voorraad:</p>
-                </div>
-                <div class="info-icon"><img src="icons/information.svg" alt="Inforamtion icon">
-                    <div class="info-bubble">
-                        <p>U kunt herbruikbare luiers overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.</p>
-                    </div>
-                </div>
-                <div class="adjust-amount">
-                    <button class="min-plus" onclick="plus()">+</button><input type="text" [value]="diapersInStock()"><button class="min-plus" onclick="minus()">-</button>
-                </div>
-            </div>
+            <app-item-adjuster
+              [itemName]="diapersNeeded + ' pampers'"
+              [infoText]="'U kunt herbruikbare luiers overwegen. Houdt er rekening mee dat u dan meer water en reinigingsmiddel nodig hebt.'"
+              [(quantity)]="diapersInStock"
+              >
+            </app-item-adjuster>
         </div>
         <div *ngIf="isVegan">
-            <div class="check-item-input">
-                <div>
-                    <h3>Vitamine B12</h3>
-                    <p>Op voorraad:</p>
-                </div>
-                <div class="adjust-amount">
-                    <button>+</button><input type="text"><button>-</button>
-                </div>
-            </div>
+            <app-item-adjuster
+              [itemName]="b12Needed + 'x Vitamine B12'"
+              [infoText]=" ''"
+              [(quantity)]="b12InStock"
+              >
+            </app-item-adjuster>
         </div>
     </form>
+    <button>Aanpassingen opslaan</button>
 </section>

@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { catchError, lastValueFrom, tap, throwError } from 'rxjs';
  
 
 @Injectable({
@@ -12,6 +12,7 @@ export class UserService {
   user = JSON.parse(localStorage.getItem('user') || 'null');
   userId = this.user.id; 
   familyData = signal<any[]>([]);
+  supplyData = signal<any[]>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -47,15 +48,29 @@ export class UserService {
      }
   }
 
-  async addSupplies(userId: number, supplyData: any){
-    try {
-      const response = await lastValueFrom(this.http.post(`${this.userUrl}/${userId}/supplies`, supplyData));
-      return response;  
-    } catch (error) {
-      console.log('Error adding supply:', error);
-      throw error;
-    }
+  
+  addSupplies(supplyId: number, newAmount: number) {
+    return this.http.post(`${this.userUrl}/${this.userId}/supplies`, { supplyId, quantity: newAmount })
+      .pipe(
+        tap(() => console.log('Supply added successfully')),
+        catchError((error) => {
+          console.error('Error adding supply:', error);
+          return throwError(() => error);
+        })
+      );
   }
+
+  updateSupplies(supplyId: number, newAmount: number) {
+    return this.http.put(`${this.userUrl}/${this.userId}/supplies`, { supplyId, quantity: newAmount })
+      .pipe(
+        tap(() => console.log('Supply updated successfully')),
+        catchError((error) => {
+          console.error('Error adding supply:', error);
+          return throwError(() => error);
+        })
+      );
+  }
+  
 }
 
 

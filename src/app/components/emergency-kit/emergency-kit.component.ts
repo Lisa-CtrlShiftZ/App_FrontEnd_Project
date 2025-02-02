@@ -1,23 +1,32 @@
 import { Component, NgModule, OnInit, signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SupplyAdjusterComponent } from '../supply-adjuster/supply-adjuster.component';
+
+interface StockItem {
+  id: number;
+  name: string;
+  quantity: number;
+}
 
 @Component({
   selector: 'app-emergency-kit',
-  imports: [FormsModule, CommonModule],
+  standalone: true, 
+  imports: [FormsModule, CommonModule, SupplyAdjusterComponent],
   templateUrl: './emergency-kit.component.html',
   styleUrl: './emergency-kit.component.css'
 })
 export class EmergencyKitComponent implements OnInit{
   httpClient = inject(HttpClient);
   url = 'http://127.0.0.1:8000/api';
-
+  
   familyData = signal<any[]>([]);
-  diapersInStock = signal<any[]>([]);
-  padsInStock = signal<any[]>([]);
+  diapersInStock = 0;
+  padsInStock = 0;
+  b12InStock = 0; 
 
   user = JSON.parse(localStorage.getItem('user') || 'null ');
   userId = this.user.id;
@@ -28,16 +37,17 @@ export class EmergencyKitComponent implements OnInit{
   //set inital values
   diapersNeeded: number = 0;
   sanitaryPadsNeeded: number = 0;
+  b12Needed = 0; 
   isWoman: boolean = false;
   isBaby: boolean = false;
-  isElder: boolean = false;
   isVegan: boolean = false; 
+ 
+  prepareTime = Number(sessionStorage.getItem('timeframe')) || 7;
 
- //Will be fetched later. Prep time in weeks
-  prepareTime = 8; 
+  stock: any;
   
-  constructor(private userService: UserService) {}
-
+  constructor(private userService: UserService, private http: HttpClient ) {};
+  
   async ngOnInit(): Promise<void> {
     await this.getUserFamilyData(); 
     await this.getSuppliesInStock(); 
@@ -46,6 +56,7 @@ export class EmergencyKitComponent implements OnInit{
     this.diapersNeeded = this.calculateDiapers(this.prepareTime);
     this.sanitaryPadsNeeded = this.calculateSanitaryPads(this.prepareTime);
     this.firstTimeVisitor(); 
+    this.isMessageVisible;
   }
 
   // check if any family members falls in a 'special' category 
@@ -92,23 +103,19 @@ export class EmergencyKitComponent implements OnInit{
         if(age < 3){
           this.isBaby = true;
         }
-        if(age > 65 ){
-          this.isElder = true; 
-        }
-
     });
 }
   
   calculateDiapers(prepareTime: number){
-     let diapersNeeded = prepareTime * 49;
+     let diapersNeeded = Math.round(prepareTime / 7 * 49);
      return diapersNeeded;
   }
 
   calculateSanitaryPads(prepareTime: number){
-    let prepTimeInMonths = prepareTime / 4; 
+    let prepTimeInMonths = prepareTime / 30; 
     let sanitaryPadsNeeded = prepTimeInMonths * 25;
     // Return amount rounded down 
-    return Math.floor(sanitaryPadsNeeded); 
+    return Math.round(sanitaryPadsNeeded); 
   }
 
   async getSuppliesInStock(){
@@ -118,25 +125,48 @@ export class EmergencyKitComponent implements OnInit{
 
       //fetch and set diapers
       const diapers = response.find((item: { supply_name: string; }) => item.supply_name === 'Diapers');
-      const diapersQuantity = diapers.quantity; 
-      this.diapersInStock.set(diapersQuantity);  
+      this.diapersInStock = diapers.quantity;  
 
       //fetch and set sanitary pads
-      const pads = response.find((item: {supply_name:string}) => item.supply_name === "Sanitary Pads");
-      const padsQuantity = pads.quantity; 
-      this.padsInStock.set(padsQuantity)
+      const pads = response.find((item: {supply_name:string}) => item.supply_name === "Sanitary Pads"); 
+      this.padsInStock = pads.quantity;
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
 
+  updateStock(itemId: number, newAmount: number) {
+    try {
+      this.userService.addSupplies(itemId, newAmount);
+    } catch (error) {
+      console.error('Error updating stock:', error);
+    }
+  }
+
+
   firstTimeVisitor(){
-    if( !window.localStorage['isReturningVisitor']) {
-      window.localStorage['isReturningVisitor'] = true;
+
+    if( !localStorage['isReturningVisitor']) {
+       
+      this.isMessageVisible = false;
+      localStorage['isReturningVisitor'] = true;   
+
   }
   }
 
   dismiss(){
     this.isMessageVisible = false;
   }
+
+  plus() {
+    this.diapersInStock++;
+  }
+
+  minus(){
+    if (this.diapersInStock > 0){
+      this.diapersInStock--; 
+    }
+  }
 }
+
+ 

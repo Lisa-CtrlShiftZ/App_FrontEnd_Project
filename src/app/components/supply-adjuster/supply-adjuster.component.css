@@ -1,0 +1,83 @@
+input[type="text"] {
+    max-width: 60px; 
+    box-sizing: border-box; 
+    border: none;
+}
+
+.check-item-input {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+
+    position: relative;
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding: 20px;
+
+    min-width: 250px;
+}
+
+.check-item-input:hover .info-icon {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+.adjust-amount {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.min-plus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+
+/* Information icon & bubble */
+
+.info-icon{
+    position: absolute;
+
+    top: 8px;  
+    right: 8px;  
+
+    display: none;
+}
+
+.info-icon img {
+    width: 20px;
+    top: 5px;
+    right: 5px;
+}
+
+.info-bubble {
+    position: absolute;
+    visibility: hidden;
+     
+    border-radius: 10px;
+    padding: 10px 5px;
+    background-color: #fafafa;
+    width: 300px;
+    z-index: 10;
+
+}
+
+.info-bubble p {
+    font-size: 0.8rem;
+   
+}
+
+.info-icon:hover .info-bubble {
+    visibility: visible;
+}
+
+/* Small animation */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
