@@ -175,7 +175,7 @@ export class StorageComponent implements OnInit {
       circleProtein.style.strokeDashoffset = strokeDashoffset.toString();
     } 
     if (percentageProtein) {
-      percentageProtein.textContent = `${protein_percentage*100} %`;
+      percentageProtein.textContent = `${Math.floor(protein_percentage*100)} %`;
     }
 
     if (circleCarb) {
@@ -184,18 +184,16 @@ export class StorageComponent implements OnInit {
     } 
 
     if (percentageCarb) {
-      percentageCarb.textContent = `${carb_percentage*100} %`;
+      percentageCarb.textContent = `${Math.floor(carb_percentage*100)} %`;
     }
 
     if (circleFat) {
       const strokeDashoffset =251.2-(188.4 * Math.min(fat_percentage,1));
       circleFat.style.strokeDashoffset = strokeDashoffset.toString();
-    } else {
-      console.error('Circle element not found!');
-    }
+    } 
 
     if (percentageFat) {
-      percentageFat.textContent = `${fat_percentage*100} %`;
+      percentageFat.textContent = `${Math.floor(fat_percentage*100)} %`;
     }
 }
 
@@ -444,6 +442,7 @@ export class StorageComponent implements OnInit {
               if (newExpirationDate) foodExpirationLabel.textContent = newExpirationDate;
       
               this.update_food(food.id, newAmount || food.amount, newExpirationDate || food.expiration_date);
+              this.calculateStats()
           }
         });
 
@@ -454,6 +453,8 @@ export class StorageComponent implements OnInit {
         deleteButton.addEventListener('click', () => {
             container.removeChild(storageElement);
             this.delete_food(food.id)
+            this.calculateStats()
+
         });
 
         // Append buttons to the button container
