@@ -1,0 +1,25 @@
+:root {
+    --green: #08342a;
+    --red: #dd5f40;
+    --white:  #ffffff;
+}
+
+a {
+    padding: 5px;
+    text-decoration: none;
+    width: 100%;
+    color: #08342a;
+
+}
+
+a:hover {
+    text-decoration-line: underline;
+}
+
+.header {
+    padding: 5px;
+    text-align: left;
+    font-size: 25px;
+    font-family: Poppins;
+    margin-bottom: 50px;
+}
