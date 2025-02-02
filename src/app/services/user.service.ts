@@ -59,6 +59,17 @@ export class UserService {
         })
       );
   }
+
+  updateSupplies(supplyId: number, newAmount: number) {
+    return this.http.put(`${this.userUrl}/${this.userId}/supplies`, { supplyId, quantity: newAmount })
+      .pipe(
+        tap(() => console.log('Supply updated successfully')),
+        catchError((error) => {
+          console.error('Error adding supply:', error);
+          return throwError(() => error);
+        })
+      );
+  }
   
 }
 

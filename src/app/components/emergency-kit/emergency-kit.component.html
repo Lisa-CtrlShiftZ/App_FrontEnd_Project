@@ -86,10 +86,6 @@
             <label for="baby">Baby</label>
         </div>
         <div class="personalized-item">
-            <input type="checkbox" id="elder" name="elder">
-            <label for="elder">Oudere</label>
-        </div>
-        <div class="personalized-item">
             <input type="checkbox" id="vegan" name="vegan" [(ngModel)]="isVegan">
             <label for="vegan">Vegan</label>
         </div>
@@ -120,5 +116,5 @@
             </app-item-adjuster>
         </div>
     </form>
-    <button (click)="saveUpdates()">Save</button>
+    <button>Aanpassingen opslaan</button>
 </section>

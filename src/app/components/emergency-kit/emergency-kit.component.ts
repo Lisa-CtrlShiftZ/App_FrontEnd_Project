@@ -40,11 +40,10 @@ export class EmergencyKitComponent implements OnInit{
   b12Needed = 0; 
   isWoman: boolean = false;
   isBaby: boolean = false;
-  isElder: boolean = false;
   isVegan: boolean = false; 
+ 
+  prepareTime = Number(sessionStorage.getItem('timeframe')) || 7;
 
- //Will be fetched later. Prep time in weeks
-  prepareTime = 8; 
   stock: any;
   
   constructor(private userService: UserService, private http: HttpClient ) {};
@@ -57,6 +56,7 @@ export class EmergencyKitComponent implements OnInit{
     this.diapersNeeded = this.calculateDiapers(this.prepareTime);
     this.sanitaryPadsNeeded = this.calculateSanitaryPads(this.prepareTime);
     this.firstTimeVisitor(); 
+    this.isMessageVisible;
   }
 
   // check if any family members falls in a 'special' category 
@@ -103,23 +103,19 @@ export class EmergencyKitComponent implements OnInit{
         if(age < 3){
           this.isBaby = true;
         }
-        if(age > 65 ){
-          this.isElder = true; 
-        }
-
     });
 }
   
   calculateDiapers(prepareTime: number){
-     let diapersNeeded = prepareTime * 49;
+     let diapersNeeded = Math.round(prepareTime / 7 * 49);
      return diapersNeeded;
   }
 
   calculateSanitaryPads(prepareTime: number){
-    let prepTimeInMonths = prepareTime / 4; 
+    let prepTimeInMonths = prepareTime / 30; 
     let sanitaryPadsNeeded = prepTimeInMonths * 25;
     // Return amount rounded down 
-    return Math.floor(sanitaryPadsNeeded); 
+    return Math.round(sanitaryPadsNeeded); 
   }
 
   async getSuppliesInStock(){
@@ -147,37 +143,12 @@ export class EmergencyKitComponent implements OnInit{
     }
   }
 
-  saveUpdates() {
-    const suppliesToUpdate = [];
-  
-    if (this.isWoman) {
-      suppliesToUpdate.push({
-        supplyId: this.sanitaryPadsId, // Ensure you have an ID for this item
-        quantity: this.padsInStock
-      });
-    }
-  
-    if (this.isBaby) {
-      suppliesToUpdate.push({
-        supplyId: this.diapersId, // Ensure you have an ID for this item
-        quantity: this.diapersInStock
-      });
-    }
-  
-    if (suppliesToUpdate.length > 0) {
-      this.userService.addMultipleSupplies(suppliesToUpdate).subscribe({
-        next: () => console.log('All supplies updated successfully'),
-        error: (err) => console.error('Error updating supplies:', err)
-      });
-    } else {
-      console.log('No changes to save.');
-    }
-  }
- 
+
   firstTimeVisitor(){
-    if( !window.localStorage['isReturningVisitor']) {
-    
-      window.localStorage['isReturningVisitor'] = true;
+    if( !localStorage['isReturningVisitor']) {
+       
+      this.isMessageVisible = false;
+      localStorage['isReturningVisitor'] = true;   
   }
   }
 

@@ -30,13 +30,12 @@ export class SupplyAdjusterComponent {
 
   increase() {
     this.quantity++;
-    this.quantityChange.emit(this.quantity);
+    
   }
 
   decrease() {
     if (this.quantity > 0) {
       this.quantity--;
-      this.quantityChange.emit(this.quantity);
     }
   }
  }
