@@ -18,8 +18,6 @@ export class SupplyAdjusterComponent {
 
   @Output() quantityChange = new EventEmitter<number>();
 
-  StockItem: { id: number; quantity: number } = { id: 1, quantity: 10 };
-
   stock = signal<any[]>([]);
   httpClient = inject(HttpClient);
   url = 'http://127.0.0.1:8000/api';
