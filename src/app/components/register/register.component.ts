@@ -57,7 +57,9 @@ passwordMatch(control: AbstractControl): {[key: string]: boolean} | null {
         .subscribe({
           next: (data: any) => {
             console.log('Signup successful:', data);
-            this.router.navigate(['/']); // Redirect to login after successful signup
+
+            localStorage.setItem('user',JSON.stringify(data.user))
+            this.router.navigate(['/onboarding/gegevens']); // Redirect to login after successful signup
           },
           error: (err) => {
             console.error('Error during signup:', err);

@@ -1,0 +1,122 @@
+
+  
+  header,.h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 64px;
+    font-weight: 600;
+  }
+  
+  .subheader {
+    font-family:  'Poppins', sans-serif;
+    font-size:40px;
+    font-weight: 600;
+  }
+  
+  p {
+    font-family:'Open Sans', sans-serif;
+    font-size:  20px;
+    font-weight: 400;
+  }
+  .landing-page{
+    margin: 0px;
+    padding:0px;
+    box-sizing: border-box;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+  img{
+    width: 200px;
+    height: 200px;
+  }
+  .flexbox{
+    display:flex;
+    justify-content: center;
+  }
+  button {
+    background-color: #dd5f40; 
+    border: 2px solid #dd5f40; 
+    padding: 15px 25px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    outline: none;
+}
+button:hover {
+    background-color:#dd5f40; 
+    color: #ffffff;
+}
+  
+.intro,.register-bottom{
+    background-color:  #08342a;
+    color: #ffffff;
+}
+.emergency-package{
+    background-color: #dd5f40;
+    color: #ffffff;
+    padding: 100px;
+}
+.centered{
+    margin:auto;
+    width: 50%;
+    text-align: center;
+}
+.padding-survival{
+    padding: 20px 20px;
+}
+.register-bottom{
+    padding: 100px 20px 200px 20px;
+}
+.survival-guide{
+    padding: 70px;
+}
+.how-to-prepare{
+    padding: 70px;
+}
+.intro{
+    padding:0px;
+}
+.intro-style{
+    align-content: center;
+    text-align: left;
+    padding:100px;
+    padding-left: 250px;
+}
+.intro-style >* {
+    padding: 15px;
+}
+footer{
+  background-color: rgb(34, 34, 34);
+  color:#ffffff;
+  padding: 50px 30px 10px 30px;
+}
+.inner-guides-container {
+  display: flex;
+  gap: 30px;
+
+  padding-left: 120px;
+  padding-right: 120px;
+}
+.guide-item {
+  background-color: #08342A;
+  width: 300px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+
+  padding-bottom: 20px;
+}
+
+.guide-item img {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-radius: 10px;
+}
+
+#flex{
+  display:flex
+}

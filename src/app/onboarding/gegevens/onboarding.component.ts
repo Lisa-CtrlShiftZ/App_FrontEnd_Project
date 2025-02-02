@@ -21,6 +21,7 @@ export class OnboardingComponent {
     weight: 0,
     diet: '',
     date_of_birth: '' ,
+    user_id: '',
   };
 
   // initialize the familyMembers array to hold the user's data and family members data.
@@ -39,22 +40,50 @@ export class OnboardingComponent {
   }
 
   // Save the data to sessionstorage and post to database. Then move to the next step of the form.
-  nextPage() {
-
+  async nextPage() {
     // validate input
     if (this.validateData()) {
-    // add user to the array
-    this.familyMembers.push({ ...this.formData });
+      // Retrieve the user from localStorage
+      const userId = JSON.parse(localStorage.getItem('userId') || '{}');
 
+      if (userId) {
+        // Add the user_id to formData
+        this.formData.user_id = userId;
 
-    // Save data to sessionstorage
-    sessionStorage.setItem('familyMembers', JSON.stringify(this.familyMembers));
+        // Add user to the array
+        this.familyMembers.push({ ...this.formData });
 
-    // navigate to next page
-    this.router.navigate(['onboarding/toevoegen']);
+        // Save data to sessionstorage
+        sessionStorage.setItem('familyMembers', JSON.stringify(this.familyMembers));
 
+        try {
+          // Send the formData to the API
+          const apiUrl = 'http://127.0.0.1:8000/api/family_member';
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.formData),
+          });
+
+          if (response.ok) {
+            console.log('Family member added successfully');
+          } else {
+            console.error('Error adding family member');
+          }
+        } catch (error) {
+          console.error('Error posting family member:', error);
+        }
+
+        // navigate to the next page
+        this.router.navigate(['onboarding/toevoegen']);
+      } else {
+        console.error('User not found in localStorage');
+      }
+    }
   }
 }
-}
+
 
 

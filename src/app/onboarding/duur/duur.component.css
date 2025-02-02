@@ -7,10 +7,12 @@
 body {
     font-family: sans-serif;
     margin: 0;
+    font-family: Poppins;
 }
 
 h1 {
-    font-family: Poppins;
+
+    margin-bottom: 70px;
 }
 
 .wrapper {
@@ -26,6 +28,7 @@ h1 {
     padding: 12px;
     padding-left: 40px;
     flex: 1 1 auto;
+    align-items: center;
 }
 
 .rightpane {
@@ -78,5 +81,8 @@ h2, p {
 
 label {
     display: flex;
+}
 
+p {
+    text-align: center;
 }

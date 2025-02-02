@@ -145,10 +145,12 @@ export class EmergencyKitComponent implements OnInit{
 
 
   firstTimeVisitor(){
+
     if( !localStorage['isReturningVisitor']) {
        
       this.isMessageVisible = false;
       localStorage['isReturningVisitor'] = true;   
+
   }
   }
 

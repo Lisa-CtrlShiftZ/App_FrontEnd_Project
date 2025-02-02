@@ -19,7 +19,7 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
-
+vendor
 # Visual Studio Code
 .vscode/*
 !.vscode/settings.json
@@ -39,8 +39,10 @@ testem.log
 vendor
 .env
 
+
 # System files
 .DS_Store
 Thumbs.db
 
 .env
+/vendor
