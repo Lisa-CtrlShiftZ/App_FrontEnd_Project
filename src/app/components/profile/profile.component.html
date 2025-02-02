@@ -13,8 +13,8 @@
         <div class="leftpane">
             <div class="content">
                 <div class="avatar-box">
-                    <a href="/profile"><img src="images/standard_profile.jpg" alt="avatar image"></a>
-                    <p>user name</p>
+                    <a href="/profile"><img src="/avatar-placeholder.png" alt="avatar image"></a>
+                    <p>{{user.name}}</p>
                 </div>
                 <button type="button" (click)="showAccount()">accountgegevens</button>
                 <button type="button" (click)="showFamily()">familie beheren</button>
@@ -36,6 +36,7 @@
                     <button type="submit" [disabled]="profileForm.invalid">Wijzigingen opslaan</button>
                 </form>
 
+                <!--
                 <form [formGroup]="passwordForm" (ngSubmit)="saveNewPassword()">
                     <h2>Wachtwoord</h2>
 
@@ -58,6 +59,7 @@
 
                     <button type="submit" [disabled]="passwordForm.invalid">Wijzigingen opslaan</button>
                 </form>
+                -->
             }
             @else if (familyVisible) {
                 <h2>Familie beheren</h2>

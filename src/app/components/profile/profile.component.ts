@@ -198,8 +198,8 @@ export class ProfileComponent implements OnInit{
     }
 
     console.log('Profile updated succesfully');
-    // Update localstorage
-    localStorage.setItem('user', JSON.stringify(updatedData));
+    
+    
   }
   catch (error) {
     console.error('Error updating profile data:', error);

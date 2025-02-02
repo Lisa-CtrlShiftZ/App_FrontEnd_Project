@@ -48,7 +48,8 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'emergency-kit', component: EmergencyKitComponent }
+    { path: 'emergency-kit', component: EmergencyKitComponent },
+    { path: 'food-storage', component: StorageComponent},
 
 
 ];
