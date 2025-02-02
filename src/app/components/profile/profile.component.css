@@ -23,9 +23,9 @@ h1 {
     flex-direction: column;
     padding: 40px;
     margin-left: 80px;
-    padding: 12px;
-    /* padding-left: 40px; */
     flex: 1 1 auto;
+    align-items: center;
+    margin-top: 80px;
 }
 
 .leftpane {
@@ -97,4 +97,22 @@ img {
     box-sizing: border-box;
     width: 180px;
 
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.rightpane button {
+    width: 250px;
+}
+
+select {
+    width: 50%;
 }

@@ -49,7 +49,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'emergency-kit', component: EmergencyKitComponent },
-    { path: 'food-storage', component: StorageComponent}
+    { path: 'food-storage', component: StorageComponent},
 
 
 ];
