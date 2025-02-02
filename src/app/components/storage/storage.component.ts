@@ -75,7 +75,7 @@ export class StorageComponent implements OnInit {
     const barCaloriesProgress = document.getElementById("progress_bar_calories") as HTMLElement;
   
     if (totalCaloriesElement) {
-      totalCaloriesElement.textContent = `${currentCalories} cal`;
+      totalCaloriesElement.textContent = `${Math.floor(currentCalories)} cal`;
     }
   
     if (extraCaloriesElement) {
