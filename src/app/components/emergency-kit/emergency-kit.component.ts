@@ -141,15 +141,36 @@ export class EmergencyKitComponent implements OnInit{
 
   updateStock(itemId: number, newAmount: number) {
     try {
-      const response = this.http.put<StockItem>(
-        `${this.url}/user/${this.userId}/supplies`,
-        { itemId, amount: newAmount }
-      );
-  
-      console.log('Updated stock:', response);
-      this.stock.set(response); // Update the Signal with the new data
+      this.userService.addSupplies(itemId, newAmount);
     } catch (error) {
       console.error('Error updating stock:', error);
+    }
+  }
+
+  saveUpdates() {
+    const suppliesToUpdate = [];
+  
+    if (this.isWoman) {
+      suppliesToUpdate.push({
+        supplyId: this.sanitaryPadsId, // Ensure you have an ID for this item
+        quantity: this.padsInStock
+      });
+    }
+  
+    if (this.isBaby) {
+      suppliesToUpdate.push({
+        supplyId: this.diapersId, // Ensure you have an ID for this item
+        quantity: this.diapersInStock
+      });
+    }
+  
+    if (suppliesToUpdate.length > 0) {
+      this.userService.addMultipleSupplies(suppliesToUpdate).subscribe({
+        next: () => console.log('All supplies updated successfully'),
+        error: (err) => console.error('Error updating supplies:', err)
+      });
+    } else {
+      console.log('No changes to save.');
     }
   }
  
